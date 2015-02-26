@@ -1,6 +1,5 @@
 from census_paleo.models import *
 from django.contrib import admin
-from django.contrib.auth.models import User,Group
 
 
 
@@ -22,6 +21,4 @@ admin.site.register(reference)
 admin.site.register(taxonomy,taxonomyAdmin)
 admin.site.register(censusLocation,censusLocationAdmin)
 admin.site.register(occurrence, occurrenceAdmin)
-admin.site.register(User)
-admin.site.register(Group)
 admin.site.register(fossilLocation)

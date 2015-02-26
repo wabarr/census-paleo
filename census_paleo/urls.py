@@ -3,6 +3,7 @@ from census_paleo.views import *
 from django.contrib.auth.decorators import login_required
 from ajax_select import urls as ajax_select_urls
 from tastypie.api import Api
+from django.contrib import admin
 #from census_paleo.api import OccurrenceResource, ReferenceResource, TaxonomyResource
 
 # v1_api = Api(api_name='v1')
@@ -10,14 +11,12 @@ from tastypie.api import Api
 # v1_api.register(ReferenceResource())
 # v1_api.register(TaxonomyResource())
 
-# Uncomment the next two lines to enable the admin:
-urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'myproject.views.home', name='home'),
-    # url(r'^myproject/', include('myproject.foo.urls')),
+admin.autodiscover()
 
+urlpatterns = patterns('',
 
     url(r'^admin/lookups/', include(ajax_select_urls)),
+    url(r'^admin/', include(admin.site.urls)),
     url(r'^occurrences/$',occurrences),
     url(r'^get_taxon_info_before_adding/$',get_taxon_info_before_adding),
     url(r'^add_taxon/$',add_taxon),
