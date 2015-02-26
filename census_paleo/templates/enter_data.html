@@ -1,0 +1,53 @@
+{% extends "strongly_typed_no_sidebar.html" %}
+
+{% block title %}<title>Enter Occurrence</title>{% endblock %}
+
+{% block header_block %}
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script src="/static/ajax_select/js/ajax_select.js"></script>
+<link rel="stylesheet" href="/static/ajax_select/css/ajax_select.css" />
+{% endblock %}
+
+
+{% block base_content %}
+<div id="main-wrapper">
+        {% include "census_navbar.html" %}
+
+				<!-- Main -->
+					<div id="main" class="container" style="width:60%;>
+						<div class="row">
+
+							<!-- Content -->
+								<div id="content" class="12u skel-cell-mainContent">
+
+									<!-- Post -->
+										<article class="is-post" id="articleContainer" style="border: 1px solid #2B8CBE; border-radius: 7px; padding:10px;">
+                                            {% if messages %}
+                                                {% for message in messages %}
+                                                    <p class="success-added">{{ message }}</p>
+                                                {% endfor %}
+                                            {% endif %}
+                                            <form action="" method="post" > {% csrf_token %}
+                                                {{ form.as_p }}
+                                            <input type="submit" value="Submit Data">
+
+                                            <div class="addContainer" style="text-align: right;">
+                                                <a class="icon icon-plus-sign" href="/census/admin/census_paleo/reference/add/"><span>  Add Reference</span></a>
+                                                <a style="padding-left: 20px;" class="icon icon-plus-sign" href="/census/admin/census_paleo/censuslocation/add/"><span>  Add Census Location</span></a>
+                                                <a style="padding-left: 20px;" class="icon icon-plus-sign" href="/census/get_taxon_info_before_adding/"><span>  Add Taxon</span></a>
+                                            </div>
+                                            </form>
+
+										</article>
+                                <script>
+                                    $(".success-added").delay(1000).fadeOut()
+                                </script>
+								</div>
+
+						</div>
+					</div>
+
+			</div>
+
+{% endblock %}

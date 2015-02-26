@@ -1,0 +1,19 @@
+{% extends "strongly_typed_no_sidebar.html" %}
+{% block title %}<title>Census</title>{% endblock %}
+{% block header_block %}
+    <div id="header-wrapper">
+	<!-- Header -->
+		<div id="header" class="container">
+            {% block logo_container %}
+            <h1 id="logo"><a href="#">Bovid Census Data</a></h1>
+	        <p>{% include "census_navbar.html" %}</p>
+        </div>
+    </div>
+            {% endblock %}
+{% endblock %}
+
+
+{% block base_content %}
+
+
+{% endblock %}

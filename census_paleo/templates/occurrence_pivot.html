@@ -1,0 +1,42 @@
+{% extends "strongly_typed_no_sidebar.html" %}
+{% block title %}<title>Occurrences by Site</title>{% endblock %}
+
+{% block header_block %}
+
+{% endblock %}
+
+
+{% block base_content %}
+<div id="main-wrapper">
+    {% include "census_navbar.html" %}
+    <div id="main" class="container">
+        <h2>Occurrences from {{ reference }}</h2>
+        <div id="json-error-div"></div>
+        <table class="compact-table" id="occurrences-table">
+            <thead id="occurrences-table-header"></thead>
+            <tbody id="occurrences-table-body"></tbody>
+        </table>
+
+    </div>
+</div>
+<script>
+    $.get("/census/occurrence-pivot-json/?ref={{ reference.id }}", function( data ) {
+        var headerrow
+        $.each(data, function(taxon, obj) {
+            if(taxon === "error") $("#json-error-div").append("<h2>" + obj + "</h2>");
+            headerrow="<tr><td>Taxon</td>";
+            var row="<tr><td>" + taxon + "</td>";
+            $.each(obj, function(sitename, val) {
+                headerrow += "<td>" + sitename + "</td>";
+                if(String(val) === "true"){row += "<td>present</td>";}
+                else if(val) {row += "<td>" + val + "</td>"}
+                else {row += "<td>--</td>"}
+
+            });
+        $("#occurrences-table-body").append(row + "<tr>");
+        });
+        $("#occurrences-table-header").append(headerrow + "<tr>");
+    });
+
+</script>
+{% endblock %}

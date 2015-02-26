@@ -1,0 +1,22 @@
+a
+{
+    color:#2B8CBE;
+}
+
+a:hover {
+ cursor:pointer;
+}
+
+.customMessage, .errorlist
+{
+    background-color: rgba(228, 26, 28,.2);;
+    border-radius: 6px;
+    padding: 7px;
+    color:#333333;
+}
+
+tr:nth-child(odd)		{ background-color:transparent; }
+tr:nth-child(even)		{ background-color:#f1f1f1; }
+tr:hover {
+    background-color:rgba(228, 26, 28,.2);
+}

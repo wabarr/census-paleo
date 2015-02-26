@@ -1,0 +1,36 @@
+{% extends "strongly_typed_no_sidebar.html" %}
+{% block title %}<title>Login</title>{% endblock %}
+{% block header_block %}
+    <div id="header-wrapper">
+	<!-- Header -->
+		<div id="header" class="container">
+            {% block logo_container %}
+            <h1 id="logo"><a href="#">Login</a></h1>
+        </div>
+    </div>
+            {% endblock %}
+{% endblock %}
+
+{% block base_content %}
+    <div id="main-wrapper">
+        <div id="main" class="container">
+        {% if messages %}
+            <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><h4 class="alertText">{{ message }}</h4></li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+
+        <form name="validateuser" method="post" action="">{% csrf_token %}
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username"/>
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password"/>
+            <input type="hidden" name="nextURL" value="{{ nextURL }}">
+            <input type="submit" value="Login"/>
+        </form>
+
+        </div>
+    </div>
+{% endblock %}

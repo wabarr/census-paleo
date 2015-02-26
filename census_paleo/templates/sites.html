@@ -1,0 +1,60 @@
+{% extends "strongly_typed_no_sidebar.html" %}
+{% block title %}<title>Sites</title>{% endblock %}
+{% block extra-js-css %}
+    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.0/mapbox.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.0/mapbox.css' rel='stylesheet' />
+{% endblock %}
+
+{% block header_block %}
+
+{% endblock %}
+
+
+{% block base_content %}
+
+    <div id="main-wrapper">
+        {% include "census_navbar.html" %}
+        <div id="error-messages"></div>
+        <div id="map"></div>
+    </div>
+
+    <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css' rel='stylesheet' />
+    <link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.Default.css' rel='stylesheet' />
+
+    <script>
+
+
+        // Provide your access token
+            L.mapbox.accessToken = 'pk.eyJ1Ijoid2FiYXJyIiwiYSI6IkFlcVhEUnMifQ.hrdj4uPtG5A3Kp9H5PNTyQ';
+        // Create a map in the div #map
+            var map = L.mapbox.map('map', 'wabarr.ji2513if', {doubleClickZoom: false});
+            map.setView([-10.2,15.6], 4);
+
+        $.get("/census/sites_json/", function( data ) {
+            var markers = new L.MarkerClusterGroup();
+            $.each(data, function(i, val) {
+                try {
+                    markers.addLayer(
+                            L.marker([val["lat"], val["long"]])
+                            .on("dblclick", function () {
+                                window.open("/census/sites/" + val["shortName"]);
+                            })
+                            .bindPopup(val["fullName"])
+                    );
+                }
+                catch(err){
+                    $("#error-messages").append("Error drawing <strong>" + val["shortName"] + "</strong>: " + err + "</br>");
+                    $("#error-messages").css("background-color", "red");
+                    $("#error-messages").delay(6000).fadeOut(1000)
+                }
+                });
+            console.log(markers)
+            map.addLayer(markers);
+
+        });
+
+
+    </script>
+
+{% endblock %}

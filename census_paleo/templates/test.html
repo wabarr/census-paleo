@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script src="/static/ajax_select/js/ajax_select.js"></script>
+<link rel="stylesheet" href="/static/ajax_select/css/ajax_select.css" />
+</head>
+<body>
+    	<!-- Post -->
+                                            {% if messages %}
+                                                {% for message in messages %}
+                                                    <p class="success-added">{{ message }}</p>
+                                                {% endfor %}
+                                            {% endif %}
+                                            <form action="" method="post" > {% csrf_token %}
+                                                {{ form.as_p }}
+                                            <input type="submit" value="Submit Data">
+
+                                            <div class="addContainer" style="text-align: right;">
+                                                <a class="icon icon-plus-sign" href="/census/admin/census_paleo/reference/add/"><span>  Add Reference</span></a>
+                                                <a style="padding-left: 20px;" class="icon icon-plus-sign" href="/census/admin/census_paleo/censuslocation/add/"><span>  Add Census Location</span></a>
+                                                <a style="padding-left: 20px;" class="icon icon-plus-sign" href="/census/admin/census_paleo/taxonomy/add/"><span>  Add Taxon</span></a>
+                                            </div>
+                                            </form>
+
+                                <script>
+                                    $(".success-added").delay(1000).fadeOut()
+                                </script>
+</body>
+</html>

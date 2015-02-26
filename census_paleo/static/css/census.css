@@ -1,0 +1,92 @@
+.census-nav-container{
+    display:inline;
+}
+
+
+#census-navbar li{
+    display:inline;
+    padding-left: 10px;
+    padding-right: 10px;
+
+}
+
+.census-navbar-container li{
+    display:block;
+}
+
+.census-nav-container li:hover{
+    background-color: #e5e5e5;
+    border-radius:5px;
+    padding:5px;
+}
+
+.headerRow {
+    font-weight:bold;
+    border-bottom: 1px solid #8f8f8f;
+}
+
+.filterSelectWidget.selected {
+    background-color:rgba(228, 26, 28,.2);
+}
+
+#header-wrapper.short {
+    padding-top:0;
+}
+
+#map {
+    height: 1000px;
+}
+#error-messages{
+    padding: 1px 0px 1px 25px;
+    color: #000000;
+}
+
+.success-added {
+    background-color: #43ff88;
+    color:black;
+    border-radius:6px;
+    padding:7px;
+}
+
+tr.boldrow {
+    font-weight: bold;
+}
+
+tr.editablerow:hover {
+    cursor:pointer;
+}
+
+.ui-autocomplete {
+    background-color: white;
+    border: 1px solid #2B8CBE;
+}
+
+.ui-menu-item:hover{
+    background-color: #d0d0d0;
+}
+
+.ui-icon.ui-icon-trash {
+    padding-right: 2px;
+}
+
+.ui-helper-hidden-accessible {
+    color: #2B8CBE;
+}
+
+#id_taxon_text {
+    display:block;
+}
+
+.results_on_deck div {
+    background-color: #e8e8e8;
+    padding:6px;
+    border-radius:6px;
+}
+
+.results_on_deck div::before {
+    content: '\a0 '
+}
+
+.compact-table {
+    font-size:80%;
+}

@@ -1,0 +1,4 @@
+I had to make a very small tweak to the config.js file, to change the prefix that the file uses when looking for the CSS sheets. On my normal django setup it should read
+
+
+prefix: '/static/css/style',
