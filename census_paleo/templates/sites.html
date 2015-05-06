@@ -31,14 +31,14 @@
             var map = L.mapbox.map('map', 'wabarr.ji2513if', {doubleClickZoom: false});
             map.setView([-10.2,15.6], 4);
 
-        $.get("/census/sites_json/", function( data ) {
+        $.get("/sites_json/", function( data ) {
             var markers = new L.MarkerClusterGroup();
             $.each(data, function(i, val) {
                 try {
                     markers.addLayer(
                             L.marker([val["lat"], val["long"]])
                             .on("dblclick", function () {
-                                window.open("/census/sites/" + val["shortName"]);
+                                window.open("/sites/" + val["shortName"]);
                             })
                             .bindPopup(val["fullName"])
                     );
