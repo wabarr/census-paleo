@@ -3,7 +3,7 @@ from census_paleo.models import occurrence, taxonomy
 from ajax_select import make_ajax_field
 
 class OccurrenceForm(ModelForm):
-    taxon = make_ajax_field(occurrence, "taxon", "taxonlookup")
+    taxon = make_ajax_field(occurrence, "taxon", "taxonLookup")
     class Meta:
         model = occurrence
 
@@ -12,5 +12,5 @@ class TaxonForm(ModelForm):
         model = taxonomy
 
 class GetTaxonInfoForm(Form):
-    taxon = make_ajax_field(occurrence, "taxon", "taxonlookup")
+    taxon = make_ajax_field(occurrence, "taxon", "taxonLookup")
 
