@@ -16,7 +16,7 @@ class referenceLookup(LookupChannel):
     model = reference
 
     def get_query(self,q,request):
-        query = Q(authorshortstring__icontains=q) | Q(year__exact=q)
+        query = Q(authorshortstring__icontains=q) | Q(year__contains=q)
         return reference.objects.filter(query)
 
 class locationLookup(LookupChannel):
@@ -25,4 +25,4 @@ class locationLookup(LookupChannel):
 
     def get_query(self,q,request):
         query = Q(fullName__icontains=q) | Q(shortName__icontains=q)
-        return reference.objects.filter(query)
+        return censusLocation.objects.filter(query)
