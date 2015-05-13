@@ -1,8 +1,7 @@
 from census_paleo.models import *
 from django.contrib import admin
 from ajax_select import make_ajax_form
-from ajax_select.admin import AjaxSelectAdmin
-from ajax_select.fields import autoselect_fields_check_can_add
+from ajax_select.admin import AjaxSelectAdmin, AjaxSelectAdminTabularInline
 
 #this is straight out of django docs
 
@@ -10,15 +9,12 @@ class taxonomyAdmin(admin.ModelAdmin):
     list_display = ("tclass","order","family","subFamily","tribe","genusName","specificEpithet")
     list_filter = ['tribe','taxonRank']
 
-class OccurrenceInline(admin.TabularInline):
+class OccurrenceInline(AjaxSelectAdminTabularInline):
     model = occurrence
+    form = make_ajax_form(occurrence, {"ref": "referenceLookup", "taxon":"taxonLookup"})
 
-    def get_form(self, request, obj=None, **kwargs):
-        form = make_ajax_form(occurrence, {"ref": "referenceLookup", "taxon":"taxonLookup"})
-        autoselect_fields_check_can_add(form, self.model, request.user)
-        return form
 
-class censusLocationAdmin(admin.ModelAdmin):
+class censusLocationAdmin(AjaxSelectAdmin):
     list_display = ("fullName","shortName","country","latitude","longitude")
     inlines = [OccurrenceInline, ]
 
