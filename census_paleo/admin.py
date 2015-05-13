@@ -5,14 +5,21 @@ from ajax_select.admin import AjaxSelectAdmin, AjaxSelectAdminTabularInline
 
 #this is straight out of django docs
 
+class OccurrenceInline(AjaxSelectAdminTabularInline):
+    model = occurrence
+    form = make_ajax_form(occurrence, {"ref": "referenceLookup", "taxon":"taxonLookup", "location":"locationLookup"})
+
+class occurrenceAdmin(AjaxSelectAdmin):
+    list_filter = ["ref","location"]
+    list_display = ["ref","location","taxon","abundance","presenceAbsenceOnly"]
+    list_editable = ["abundance","presenceAbsenceOnly"]
+    form = make_ajax_form(occurrence, {'ref': 'referenceLookup', 'location':'locationLookup', 'taxon':'taxonLookup'})
+
 class taxonomyAdmin(admin.ModelAdmin):
     list_display = ("tclass","order","family","subFamily","tribe","genusName","specificEpithet")
     list_filter = ['tribe','taxonRank', "family"]
     search_fields = ["genusName", "specificEpithet"]
-
-class OccurrenceInline(AjaxSelectAdminTabularInline):
-    model = occurrence
-    form = make_ajax_form(occurrence, {"ref": "referenceLookup", "taxon":"taxonLookup"})
+    inlines = [OccurrenceInline, ]
 
 
 class censusLocationAdmin(AjaxSelectAdmin):
@@ -21,11 +28,7 @@ class censusLocationAdmin(AjaxSelectAdmin):
     search_fields = ["fullName", "shortName"]
 
 
-class occurrenceAdmin(AjaxSelectAdmin):
-    list_filter = ["ref","location"]
-    list_display = ["ref","location","taxon","abundance","presenceAbsenceOnly"]
-    list_editable = ["abundance","presenceAbsenceOnly"]
-    form = make_ajax_form(occurrence, {'ref': 'referenceLookup', 'location':'locationLookup', 'taxon':'taxonLookup'})
+
 
 class fossilLocationAdmin(admin.ModelAdmin):
     inlines = [OccurrenceInline, ]
