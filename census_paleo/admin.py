@@ -10,8 +10,13 @@ class taxonomyAdmin(admin.ModelAdmin):
     list_display = ("tclass","order","family","subFamily","tribe","genusName","specificEpithet")
     list_filter = ['tribe','taxonRank']
 
+class OccurrenceInline(admin.TabularInline):
+    model = occurrence
+    form = make_ajax_form(occurrence, {"ref": "referenceLookup", "taxon":"taxonLookup"})
+
 class censusLocationAdmin(admin.ModelAdmin):
     list_display = ("fullName","shortName","country","latitude","longitude")
+    inlines = [OccurrenceInline, ]
 
 class occurrenceAdmin(AjaxSelectAdmin):
     list_filter = ["ref","location"]
