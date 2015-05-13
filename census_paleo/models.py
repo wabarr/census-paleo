@@ -255,7 +255,7 @@ class occurrence(models.Model):
     presenceAbsenceOnly = models.BooleanField(default=False, verbose_name="Abundance is unknown, but taxon is known to be present.")
     abundance = models.IntegerField(max_length=100, null=True, blank=True)
     issue = models.NullBooleanField(default=False)
-    notes = models.TextField(max_length=200, null=True, blank=True)
+    notes = models.CharField(max_length=200, null=True, blank=True, )
 
     class Meta:
         db_table = 'occurrence'
