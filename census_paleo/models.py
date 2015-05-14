@@ -9,9 +9,13 @@ class reference(models.Model):
     issue = models.IntegerField(max_length=5, blank=True, null=True)
     pages = models.CharField(max_length=20, blank=True, null=True)
     doi = models.CharField(max_length=100, blank=True, null=True)
+    dataEntryComplete = models.NullBooleanField(blank=True, default=False)
 
     def __unicode__(self):
-        name = self.authorshortstring + ", " + str(self.year)
+        if self.dataEntryComplete:
+            name = self.authorshortstring + ", " + str(self.year) + " - Data Entry Complete"
+        else:
+            name = self.authorshortstring + ", " + str(self.year)
         return name
 
     class Meta:

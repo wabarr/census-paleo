@@ -35,8 +35,12 @@ class fossilLocationAdmin(admin.ModelAdmin):
     search_fields = ["fullName", "shortName"]
 
 
+class referenceAdmin(admin.ModelAdmin):
+    list_display = ["authorshortstring", "year","dataEntryComplete"]
+    list_editable = ["authorshortstring", "year","dataEntryComplete"]
+    inlines = [OccurrenceInline,]
 
-admin.site.register(reference)
+admin.site.register(reference, referenceAdmin)
 admin.site.register(taxonomy,taxonomyAdmin)
 admin.site.register(censusLocation,censusLocationAdmin)
 admin.site.register(occurrence, occurrenceAdmin)
