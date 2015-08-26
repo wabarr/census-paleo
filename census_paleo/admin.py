@@ -23,7 +23,7 @@ class taxonomyAdmin(admin.ModelAdmin):
 
 
 class censusLocationAdmin(AjaxSelectAdmin):
-    list_display = ("fullName","shortName","country","latitude","longitude")
+    list_display = ("fullName","shortName","country","latitude","longitude", "WDPAID")
     inlines = [OccurrenceInline, ]
     search_fields = ["fullName", "shortName"]
 
@@ -37,7 +37,7 @@ class fossilLocationAdmin(admin.ModelAdmin):
 
 class referenceAdmin(admin.ModelAdmin):
     list_display = ["authorshortstring", "year","dataEntryComplete"]
-    list_editable = ["authorshortstring", "year","dataEntryComplete"]
+    list_editable = ["year","dataEntryComplete"]
     inlines = [OccurrenceInline,]
 
 admin.site.register(reference, referenceAdmin)

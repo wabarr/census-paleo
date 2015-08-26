@@ -229,6 +229,7 @@ class censusLocation(models.Model):
     longitude = models.DecimalField(max_digits=25, decimal_places=10, null=True, blank=True)
     georefMethod = models.CharField(max_length=100, choices=CHOICES_georefMethod)
     datum = models.CharField(max_length=100, default="WGS84")
+    WDPAID = models.IntegerField("ID from the World Database on Protected Areas", max_length=25, null=True, blank=True)
 
     class Meta:
         db_table = 'censusLocation'
