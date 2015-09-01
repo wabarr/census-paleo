@@ -16,8 +16,9 @@ class occurrenceAdmin(AjaxSelectAdmin):
     form = make_ajax_form(occurrence, {'ref': 'referenceLookup', 'location':'locationLookup', 'taxon':'taxonLookup'})
 
 class taxonomyAdmin(admin.ModelAdmin):
-    list_display = ("tclass","order","family","subFamily","tribe","genusName","specificEpithet")
+    list_display = ("taxonRank", "family","subFamily","tribe","genusName","specificEpithet", "habitat", "diet")
     list_filter = ['tribe','taxonRank', "family"]
+    list_editable = ["habitat", "diet"]
     search_fields = ["genusName", "specificEpithet"]
     inlines = [OccurrenceInline, ]
 

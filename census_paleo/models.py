@@ -98,6 +98,19 @@ CHOICES_tribe = (
 ("Neotragini", "Neotragini"),
 )
 
+CHOICES_HABITAT = (
+    ("Forest", "Forest"),
+    ("Heavy Cover", "Heavy Cover"),
+    ("Light Cover", "Light Cover"),
+    ("Grassland", "Grassland"),
+)
+
+CHOICES_DIET = (
+    ("Grazer", "Grazer"),
+    ("Browser", "Browser"),
+    ("Mixed Feeder", "Mixed Feeder"),
+)
+
 
 class taxonomy(models.Model):
     kingdom = models.CharField(max_length=100, null=True, blank=True, choices=CHOICES_KINGDOM, default="Animalia")
@@ -118,6 +131,8 @@ class taxonomy(models.Model):
     ref = models.ForeignKey(reference)
     Fernandez_Vrba_2005_Name = models.CharField(max_length=255, null=True, blank=True)
     BinindaEmonds_2008_Name = models.CharField(max_length=255, null=True, blank=True)
+    habitat = models.CharField(max_length=25, null=True, blank=True, choices = CHOICES_HABITAT)
+    diet = models.CharField(max_length=25, null=True, blank=True, choices = CHOICES_DIET)
 
 
     class Meta:
