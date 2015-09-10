@@ -58,21 +58,23 @@ def sites_json(request):
 
 
 def occurrences_ajax(request):
-    if request.is_ajax():
-        filterArgs = {}
-        for key,value in request.GET.iteritems():
-            filterArgs[key] = value
-        matchingOccurrences = occurrence.objects.filter(**filterArgs)
-        resp = []
-        for each in matchingOccurrences:
-            eachDict = {}
-            eachDict["ref"] = each.ref.__unicode__()
-            eachDict["location"] = each.location.__unicode__()
-            eachDict["taxon"] = each.taxon.__unicode__()
-            eachDict["abundance"] = each.abundance
-            eachDict["id"] = each.id
-            resp.append(eachDict)
-        return HttpResponse(json.dumps(resp), content_type="application/json")
+#if request.is_ajax():
+    filterArgs = {}
+    for key,value in request.GET.iteritems():
+        filterArgs[key] = value
+    matchingOccurrences = occurrence.objects.filter(**filterArgs)
+    resp = []
+    for each in matchingOccurrences:
+        eachDict = {}
+        eachDict["ref"] = each.ref.__unicode__()
+        eachDict["location"] = each.location.__unicode__()
+        eachDict["locationWDPAid"] = each.location.WDPAID
+        eachDict["habitat"] = each.taxon.habitat
+        eachDict["taxon"] = each.taxon.__unicode__()
+        eachDict["abundance"] = each.abundance
+        eachDict["id"] = each.id
+        resp.append(eachDict)
+    return HttpResponse(json.dumps(resp), content_type="application/json")
 
 @login_required
 def occurrences(request):
