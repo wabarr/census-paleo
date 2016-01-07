@@ -20,7 +20,7 @@
     </div>
 </div>
 <script>
-    $.get("/census/occurrence-pivot-json/?ref={{ reference.id }}", function( data ) {
+    $.get("/occurrence-pivot-json/?ref={{ reference.id }}", function( data ) {
         var headerrow
         $.each(data, function(taxon, obj) {
             if(taxon === "error") $("#json-error-div").append("<h2>" + obj + "</h2>");
