@@ -4,6 +4,8 @@ from ajax_select import make_ajax_field
 
 class OccurrenceForm(ModelForm):
     taxon = make_ajax_field(occurrence, "taxon", "taxonLookup")
+    ref = make_ajax_field(occurrence, "ref", "referenceLookup")
+    location = make_ajax_field(occurrence, "location", "locationLookup")
     class Meta:
         model = occurrence
 
