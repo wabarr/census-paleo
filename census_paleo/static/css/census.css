@@ -42,8 +42,8 @@
 }
 
 .success-added {
-    background-color: #43ff88;
-    color:black;
+    background-color: #2B8CBE;
+    color:white;
     border-radius:6px;
     padding:7px;
 }
@@ -78,15 +78,31 @@ tr.editablerow:hover {
 }
 
 .results_on_deck div {
-    background-color: #e8e8e8;
-    padding:6px;
-    border-radius:6px;
-}
-
-.results_on_deck div::before {
-    content: '\a0 '
+    font-weight:bold;
+    color:#2B8CBE;
 }
 
 .compact-table {
     font-size:80%;
+}
+
+span[role=status] {
+    display:none;
+}
+
+.occurrenceForm {
+    display:inline;
+}
+
+input[type=submit] {
+    background-color:#2B8CBE;
+    color:white;
+    border-radius:6px;
+    border: solid black 1px;
+}
+
+#occurrenceSubmit {
+    display:block;
+    margin-top:15px;
+    width:100%;
 }

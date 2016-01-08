@@ -15,33 +15,65 @@
         {% include "census_navbar.html" %}
 
 				<!-- Main -->
-					<div id="main" class="container" style="width:60%;>
+					<div id="main" class="container" style="width:80%;>
 						<div class="row">
 
 							<!-- Content -->
 								<div id="content" class="12u skel-cell-mainContent">
 
 									<!-- Post -->
-										<article class="is-post" id="articleContainer" style="border: 1px solid #2B8CBE; border-radius: 7px; padding:10px;">
                                             {% if messages %}
                                                 {% for message in messages %}
                                                     <p class="success-added">{{ message }}</p>
                                                 {% endfor %}
                                             {% endif %}
                                             <form action="" method="post" > {% csrf_token %}
-                                                {{ form.as_p }}
-                                            <input type="submit" value="Submit Data">
+                                                <div class="row">
+                                                {{ form.non_field_errors }}
+                                                    <div class="4u">
+                                                            <div class="ajaxFormRowWrapper">
+                                                            {{ form.ref.errors }}
+                                                            <label for="{{ form.ref.id_for_label }}">Reference:  <a class="icon icon-plus-sign" href="/admin/census_paleo/reference/add/ "target="_blank"><span> </span></a></label>
+                                                                {{ form.ref }}
+                                                            </div>
+                                                            <div class="ajaxFormRowWrapper">
+                                                                {{ form.location.errors }}
+                                                                <label for="{{ form.location.id_for_label }}">Location:  <a class="icon icon-plus-sign" href="/admin/census_paleo/fossillocation/add/" target="_blank"><span> </span></a></label>
+                                                                    {{ form.location }}
+                                                            </div>
+                                                            <div class="ajaxFormRowWrapper">
+                                                                {{ form.taxon.errors }}
+                                                                <label for="{{ form.taxon.id_for_label }}">Taxon:  <a class="icon icon-plus-sign" href="/get_taxon_info_before_adding/" target="_blank"><span> </span></a></label>
+                                                                    {{ form.taxon }}
+                                                            </div>
 
-                                            <div class="addContainer" style="text-align: right;">
-                                                <a class="icon icon-plus-sign" href="/admin/census_paleo/reference/add/ "target="_blank"><span>  Add Reference</span></a>
-                                                <a style="padding-left: 20px;" class="icon icon-plus-sign" href="/admin/census_paleo/fossillocation/add/" target="_blank"><span>  Add Fossil Location</span></a>
-                                                <a style="padding-left: 20px;" class="icon icon-plus-sign" href="/get_taxon_info_before_adding/" target="_blank"><span> Add Taxon</span></a>
-                                            </div>
+                                                        </div>
+                                                    <div class="4u">
+                                                        {{ form.abundance.errors }}
+                                                            <label for="{{ form.abundance.id_for_label }}">Abundance:</label>
+                                                                {{ form.abundance }}
+                                                        {{ form.presenceAbsenceOnly.errors }}
+                                                        <label for="{{ form.presenceAbsenceOnly.id_for_label }}">Present (abundance unknown):</label>
+                                                            {{ form.presenceAbsenceOnly }}
+                                                        <input type="submit" value="Submit Data" id="occurrenceSubmit">
+
+                                                    </div>
+
+                                                    <div class="4u">
+                                                        {{ form.issue.errors }}
+                                                        <label for="{{ form.issue.id_for_label }}">Issue:</label>
+                                                            {{ form.issue }}
+                                                        {{ form.notes.errors }}
+                                                        <label for="{{ form.notes.id_for_label }}">Notes:</label>
+                                                            {{ form.notes }}
+                                                    </div>
+                                                </div>
+
+
                                             </form>
 
-										</article>
                                 <script>
-                                    $(".success-added").delay(1000).fadeOut()
+                                    $(".success-added").delay(3000).fadeOut()
                                 </script>
 								</div>
 
