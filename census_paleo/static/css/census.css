@@ -106,3 +106,7 @@ input[type=submit] {
     margin-top:15px;
     width:100%;
 }
+
+.results_on_deck div::before {
+    content: '\a0\a0 '
+}

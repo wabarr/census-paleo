@@ -8,6 +8,7 @@ class OccurrenceForm(ModelForm):
     ref = make_ajax_field(occurrence, "ref", "referenceLookup")
     location = make_ajax_field(occurrence, "location", "locationLookup")
     notes = forms.CharField(widget=forms.Textarea, required=False)
+    issue = forms.BooleanField(required=False, initial=False)
     class Meta:
         model = occurrence
 
