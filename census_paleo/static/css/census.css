@@ -107,6 +107,7 @@ input[type=submit] {
     width:100%;
 }
 
-.results_on_deck div::before {
-    content: '\a0\a0 '
+
+.results_on_deck .ui-icon.ui-icon-trash {
+    margin-right:6px;
 }
