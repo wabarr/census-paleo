@@ -7,7 +7,7 @@ class OccurrenceForm(ModelForm):
     taxon = make_ajax_field(occurrence, "taxon", "taxonLookup")
     ref = make_ajax_field(occurrence, "ref", "referenceLookup")
     location = make_ajax_field(occurrence, "location", "locationLookup")
-    notes = forms.CharField(widget=forms.Textarea)
+    notes = forms.CharField(widget=forms.Textarea, required=False)
     class Meta:
         model = occurrence
 
