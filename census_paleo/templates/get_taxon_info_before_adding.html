@@ -30,6 +30,7 @@
                                             <h2>Select Parent Taxon</h2>
                                             <p>Select the taxon just ABOVE the rank of the new taxon you wish to add.</p>
                                             <p>For instance, if you are about to add <i>Aepyceros melampus</i>, You would select <i>Aepyceros</i> (GENUS).</p>
+                                            <p>You can also search by taxonomic rank, in ALL CAPS (e.g., TRIBE). This is useful for searching for high-order taxa that match many database entries.</p>
                                             <form action="/add_taxon/" method="post"> {% csrf_token %}
                                                 {{ form.as_p }}
                                             <input type="submit" value="Submit Data">

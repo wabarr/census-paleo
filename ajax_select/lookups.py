@@ -8,7 +8,7 @@ class taxonLookup(LookupChannel):
     model = taxonomy
 
     def get_query(self,q,request):
-        query = Q(specificEpithet__icontains=q) | Q(genusName__icontains=q) | Q(tribe__icontains=q) | Q(subFamily__icontains=q) | Q(family__icontains=q) | Q(tclass__icontains=q)
+        query = Q(taxonRank__icontains=q) | Q(specificEpithet__icontains=q) | Q(genusName__icontains=q) | Q(tribe__icontains=q) | Q(subFamily__icontains=q) | Q(family__icontains=q) | Q(tclass__icontains=q)
         return taxonomy.objects.filter(query).exclude(taxonRank__exact="SUBSPECIES")
 
     def can_add(self, user, argmodel):
