@@ -18,17 +18,16 @@
 									<!-- Post -->
 										<article class="is-post">
                                         <h2>All Taxa</h2>
-                                        <table id="taxon-table" style="display: none">
+                                        <table id="taxon-table" style="display: none; width: 100%" class="display compact">
                                             <thead>
-                                                <tr class="headerRow"><td>ID</td><td>Name</td><td>Genus</td><td>Species</td></tr>
+                                                <tr class="headerRow"><td>ID</td><td>Name</td></tr>
                                             </thead>
                                             <tbody>
                                                 {% for object in object_list %}
                                                 <tr>
                                                     <td><a href="{% url "taxon_detail" pk=object.id %}">{{ object.id }}</a>&nbsp;&nbsp;&nbsp;</td>
                                                     <td>{{ object }}</td>
-                                                    <td>{{ object.genusName }}</td>
-                                                    <td>{{ object.specificEpithet }}</td>
+
                                                 </tr>
                                                 {% endfor %}
                                             </tbody>

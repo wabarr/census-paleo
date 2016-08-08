@@ -109,6 +109,8 @@ class ViewTaxon(DetailView):
     def dispatch(self, *args, **kwargs):
         return super(ViewTaxon, self).dispatch(*args, **kwargs)
 
+
+
 class ViewTaxa(ListView):
     model = taxonomy
     template_name = "taxonomy_list.html"
@@ -122,6 +124,26 @@ class ViewTaxa(ListView):
     def dispatch(self, *args, **kwargs):
         return super(ViewTaxa, self).dispatch(*args, **kwargs)
 
+class ViewOccurrence(DetailView):
+    model = occurrence
+    template_name="occurrence_detail.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ViewOccurrence, self).dispatch(*args, **kwargs)
+
+class ViewOccurrences(ListView):
+    model = occurrence
+    template_name = "occurrence_list.html"
+    queryset = occurrence.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(ViewOccurrences, self).get_context_data(**kwargs)
+        return context
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ViewOccurrences, self).dispatch(*args, **kwargs)
 
 
 def redirect2Admin(request):
