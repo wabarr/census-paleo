@@ -12,10 +12,11 @@ class reference(models.Model):
     dataEntryComplete = models.NullBooleanField(blank=True, default=False)
 
     def __unicode__(self):
-        if self.dataEntryComplete:
-            name = self.authorshortstring + ", " + str(self.year) + " - Data Entry Complete"
-        else:
-            name = self.authorshortstring + ", " + str(self.year)
+        # if self.dataEntryComplete:
+        #     name = self.authorshortstring + ", " + str(self.year) + " - Data Entry Complete"
+        # else:
+        #     name = self.authorshortstring + ", " + str(self.year)
+        name = self.authorshortstring + ", " + str(self.year)
         return name
 
     class Meta:
