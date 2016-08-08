@@ -1,6 +1,6 @@
 {% extends "strongly_typed_no_sidebar.html" %}
 
-{% block title %}<title>Enter Occurrence</title>{% endblock %}
+{% block title %}<title>Add Occurrence</title>{% endblock %}
 
 {% block header_block %}
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
@@ -27,7 +27,7 @@
                                                     <p class="success-added">{{ message }}</p>
                                                 {% endfor %}
                                             {% endif %}
-                                            <form action="" method="post" > {% csrf_token %}
+                                            <form action="" method="post"> {% csrf_token %}
                                                 <div class="row">
                                                 {{ form.non_field_errors }}
                                                     <div class="4u">
