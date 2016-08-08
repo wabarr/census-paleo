@@ -18,7 +18,7 @@
 									<!-- Post -->
 										<article class="is-post">
                                         <h2>All Taxa</h2>
-                                        <table id="taxon-table">
+                                        <table id="taxon-table" style="display: none">
                                             <thead>
                                                 <tr class="headerRow"><td>ID</td><td>Name</td><td>Genus</td><td>Species</td></tr>
                                             </thead>
@@ -49,6 +49,8 @@
             $('#taxon-table').DataTable( {
                 "lengthMenu": [[-1, 50, 100], ["All", 50, 100]]
             } );
+            $('#taxon-table').show();
+
 } );
     </script>
 {% endblock %}
