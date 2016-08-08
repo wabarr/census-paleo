@@ -1,7 +1,8 @@
 {% extends "strongly_typed_no_sidebar.html" %}
 {% block title %}<title>Taxa</title>{% endblock %}
-{% block header_block %}
-
+{% block header_block %}{% endblock %}
+{% block extra_style %}
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
 {% endblock %}
 
 {% block base_content %}
@@ -16,19 +17,22 @@
 
 									<!-- Post -->
 										<article class="is-post">
-                                            <table>
-                                            <tr class="headerRow"><td>Rank</td><td>Genus</td><td>Species</td></tr>
-
-                                                    {% for object in object_list %}
-                                                        <tr>
-                                                            <td>{{ object.taxonRank }}</td>
-                                                            <td>{{ object.genusName }}</td>
-                                                            <td>{{ object.specificEpithet }}</td>
-                                                        </tr>
-                                                    {% endfor %}
-
-
-                                            </table>
+                                        <h2>All Taxa</h2>
+                                        <table id="taxon-table">
+                                            <thead>
+                                                <tr class="headerRow"><td>ID</td><td>Name</td><td>Genus</td><td>Species</td></tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for object in object_list %}
+                                                <tr>
+                                                    <td><a href="{% url "taxon_detail" pk=object.id %}">{{ object.id }}</a>&nbsp;&nbsp;&nbsp;</td>
+                                                    <td>{{ object }}</td>
+                                                    <td>{{ object.genusName }}</td>
+                                                    <td>{{ object.specificEpithet }}</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
 
 										</article>
 
@@ -39,4 +43,12 @@
 
 			</div>
 
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#taxon-table').DataTable( {
+                "lengthMenu": [[-1, 50, 100], ["All", 50, 100]]
+            } );
+} );
+    </script>
 {% endblock %}

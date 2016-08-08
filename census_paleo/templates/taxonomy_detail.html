@@ -1,0 +1,46 @@
+{% extends "strongly_typed_no_sidebar.html" %}
+{% block title %}<title>Taxa</title>{% endblock %}
+{% block header_block %}
+
+{% endblock %}
+
+{% block base_content %}
+<div id="main-wrapper">
+                {% include "census_navbar.html" %}
+				<!-- Main -->
+					<div id="main" class="container" style="width:60%;>
+						<div class="row">
+
+							<!-- Content -->
+								<div id="content" class="12u skel-cell-mainContent">
+
+									<!-- Post -->
+										<article class="is-post">
+                                            <div class="row">
+                                               <div class="12u"><h2>{{ object }}</h2></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="4u"><strong>Order: </strong>{{ object.order }}</div>
+                                                <div class="4u"><strong>Family: </strong>{{ object.family }}</div>
+                                                <div class="4u"><strong>Tribe: <strong></strong></strong>{{ object.tribe }}</div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="4u"><strong>Subfamily: </strong>{{ object.subFamily }}</div>
+                                                <div class="4u"><strong>Genus: </strong><em>{{ object.genusName }}</em></div>
+                                                <div class="4u"><strong>Species: </strong><em>{{ object.specificEpithet }}</em></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="12u"><input type="button" value="Edit Record" onclick="location.href='/admin/census_paleo/taxonomy/{{ object.id }}/'"></div>
+                                            </div>
+
+
+										</article>
+
+								</div>
+
+						</div>
+					</div>
+
+			</div>
+
+{% endblock %}

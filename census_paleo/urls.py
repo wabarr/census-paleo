@@ -1,6 +1,5 @@
 from django.conf.urls import patterns, include, url
 from census_paleo.views import *
-from django.contrib.auth.decorators import login_required
 from ajax_select import urls as ajax_select_urls
 from tastypie.api import Api
 from django.contrib import admin
@@ -25,7 +24,8 @@ urlpatterns = patterns('',
     url(r'^sites/$',sites),
     url(r'^sites/(?P<sitename>.+)/$',site_detail),
     url(r'^sites_json/$',sites_json),
-    url(r'^taxa/$',login_required(view_taxa.as_view())),
+    url(r'^taxa/$',ViewTaxa.as_view(), name="taxon_list"),
+    url(r'^taxa/(?P<pk>[-\w]+)/$', ViewTaxon.as_view(), name="taxon_detail"),
     url(r'^occurrences-ajax/?',occurrences_ajax),
     url(r'^enter_occurrence/$', enter_occurrence),
     #url(r'^api/', include(v1_api.urls)),

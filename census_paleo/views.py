@@ -8,10 +8,12 @@ from django.contrib.auth import authenticate,login
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 from django.forms.models import modelform_factory
+from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.contrib.auth.decorators import login_required, permission_required
 from census_paleo.forms import OccurrenceForm, GetTaxonInfoForm, TaxonForm
 from django_pandas.io import read_frame
+from django.utils.decorators import method_decorator
 
 
 @login_required
@@ -99,15 +101,26 @@ def occurrences(request):
 
 
 
-#my first crack using generic display view (class based views)
+class ViewTaxon(DetailView):
+    model = taxonomy
+    template_name="taxonomy_detail.html"
 
-class view_taxa(ListView):
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ViewTaxon, self).dispatch(*args, **kwargs)
+
+class ViewTaxa(ListView):
     model = taxonomy
     template_name = "taxonomy_list.html"
     queryset = taxonomy.objects.all()
+
     def get_context_data(self, **kwargs):
-        context = super(view_taxa, self).get_context_data(**kwargs)
+        context = super(ViewTaxa, self).get_context_data(**kwargs)
         return context
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ViewTaxa, self).dispatch(*args, **kwargs)
 
 
 
