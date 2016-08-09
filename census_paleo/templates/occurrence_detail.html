@@ -29,9 +29,9 @@
 
                                                </div>
                                                 <div class="4u">
-                                                    <p>{{ object.taxon }}</p>
-                                                    <p>{{ object.location }}</p>
-                                                    <p>{{ object.ref }}</p>
+                                                    <p><a href="/admin/census_paleo/taxonomy/{{ object.taxon.id }}">{{ object.taxon }}</a></p>
+                                                    <p><a href="/admin/census_paleo/censuslocation/{{ object.location.id }}">{{ object.location }}</a></p>
+                                                    <p><a href="/admin/census_paleo/reference/{{ object.ref.id }}">{{ object.ref }}</a></p>
                                                </div>
                                                 <div class="2u labelrow" >
                                                     <p>{% if object.presenceAbsenceOnly %}Present: {% else %}Abundance: {% endif %}</p>
@@ -45,7 +45,7 @@
                                             </div>
 
                                             <div class="row">
-                                                <div class="12u"><input type="button" value="Edit Record" onclick="location.href='/admin/census_paleo/occurrence/{{ object.id }}'"></div>
+                                                <div class="12u"><input type="submit" value="Edit Record" onclick="location.href='/admin/census_paleo/occurrence/{{ object.id }}'"></div>
                                             </div>
 
 
