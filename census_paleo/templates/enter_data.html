@@ -22,58 +22,69 @@
 								<div id="content" class="12u skel-cell-mainContent">
                                     <h2>Add Occurrence</h2>
 									<!-- Post -->
-                                            {% if messages %}
-                                                {% for message in messages %}
-                                                    <p class="success-added">{{ message }}</p>
-                                                {% endfor %}
-                                            {% endif %}
-                                            <form action="" method="post"> {% csrf_token %}
+
+
+                                            <form action="" method="post" id="occurrenceSubmit"> {% csrf_token %}
                                                 <div class="row">
-                                                {{ form.non_field_errors }}
-                                                    <div class="4u">
+                                                    <div class="3u">
                                                             <div class="ajaxFormRowWrapper">
-                                                            {{ form.ref.errors }}
                                                             <label for="{{ form.ref.id_for_label }}">Reference:  <a class="icon icon-plus-sign" href="/admin/census_paleo/reference/add/ "target="_blank"><span> </span></a></label>
                                                                 {{ form.ref }}
                                                             </div>
                                                             <div class="ajaxFormRowWrapper">
-                                                                {{ form.location.errors }}
                                                                 <label for="{{ form.location.id_for_label }}">Location:  <a class="icon icon-plus-sign" href="/admin/census_paleo/fossillocation/add/" target="_blank"><span> </span></a></label>
                                                                     {{ form.location }}
                                                             </div>
                                                             <div class="ajaxFormRowWrapper">
-                                                                {{ form.taxon.errors }}
                                                                 <label for="{{ form.taxon.id_for_label }}">Taxon:  <a class="icon icon-plus-sign" href="/get_taxon_info_before_adding/" target="_blank"><span> </span></a></label>
                                                                     {{ form.taxon }}
                                                             </div>
 
                                                         </div>
-                                                    <div class="4u">
-                                                        {{ form.abundance.errors }}
+                                                    <div class="3u">
                                                             <label for="{{ form.abundance.id_for_label }}">Abundance:</label>
                                                                 {{ form.abundance }}
-                                                        {{ form.presenceAbsenceOnly.errors }}
                                                         <label for="{{ form.presenceAbsenceOnly.id_for_label }}">Present (abundance unknown):</label>
                                                             {{ form.presenceAbsenceOnly }}
                                                         <input type="submit" value="Submit Data" id="occurrenceSubmit">
 
                                                     </div>
 
-                                                    <div class="4u">
-                                                        {{ form.issue.errors }}
+                                                    <div class="3u">
                                                         <label for="{{ form.issue.id_for_label }}">Issue:</label>
                                                             {{ form.issue }}
-                                                        {{ form.notes.errors }}
                                                         <label for="{{ form.notes.id_for_label }}">Notes:</label>
                                                             {{ form.notes }}
+                                                    </div>
+                                                    <div class="3u">
+                                                        <div class="success-added"></div>
+                                                        <div class="errorcontainer"></div>
                                                     </div>
                                                 </div>
 
 
                                             </form>
 
+                                {% include 'occurrence_datatable.html' %}
                                 <script>
-                                    $(".success-added").delay(3000).fadeOut()
+                                    $( document ).ready(function() {
+                                        $('.success-added').hide()
+                                    });
+                                    $('#occurrenceSubmit').submit(function(e){
+                                        $.post({% url 'add_occurrence' %}, $(this).serialize(), function(data){
+                                            if (data.errorMessage === null){
+                                                $('.success-added').fadeIn().html(data.successMessage);
+
+                                            }
+                                            if (data.successMessage === null){
+                                                $('.errorcontainer').fadeIn().html(data.errorMessage);
+                                            }
+                                            $('.errorcontainer').delay(4000).fadeOut();
+                                            $('.success-added').delay(3000).fadeOut();
+                                        });
+                                    e.preventDefault();
+
+                                    });
                                 </script>
 								</div>
 

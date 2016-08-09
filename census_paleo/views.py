@@ -61,24 +61,24 @@ def sites_json(request):
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
 
-def occurrences_ajax(request):
-#if request.is_ajax():
-    filterArgs = {}
-    for key,value in request.GET.iteritems():
-        filterArgs[key] = value
-    matchingOccurrences = occurrence.objects.filter(**filterArgs)
-    resp = []
-    for each in matchingOccurrences:
-        eachDict = {}
-        eachDict["ref"] = each.ref.__unicode__()
-        eachDict["location"] = each.location.__unicode__()
-        eachDict["locationWDPAid"] = each.location.WDPAID
-        eachDict["habitat"] = each.taxon.habitat
-        eachDict["taxon"] = each.taxon.__unicode__()
-        eachDict["abundance"] = each.abundance
-        eachDict["id"] = each.id
-        resp.append(eachDict)
-    return HttpResponse(json.dumps(resp), content_type="application/json")
+# def occurrences_ajax(request):
+# #if request.is_ajax():
+#     filterArgs = {}
+#     for key,value in request.GET.iteritems():
+#         filterArgs[key] = value
+#     matchingOccurrences = occurrence.objects.filter(**filterArgs)
+#     resp = []
+#     for each in matchingOccurrences:
+#         eachDict = {}
+#         eachDict["ref"] = each.ref.__unicode__()
+#         eachDict["location"] = each.location.__unicode__()
+#         eachDict["locationWDPAid"] = each.location.WDPAID
+#         eachDict["habitat"] = each.taxon.habitat
+#         eachDict["taxon"] = each.taxon.__unicode__()
+#         eachDict["abundance"] = each.abundance
+#         eachDict["id"] = each.id
+#         resp.append(eachDict)
+#     return HttpResponse(json.dumps(resp), content_type="application/json")
 
 @login_required
 def occurrence_table_json(request):
@@ -186,30 +186,50 @@ def census_home(request):
                                 {},
                              RequestContext(request))
 
+# @permission_required("census_paleo.occurrence_add")
+# def enter_occurrence(request):
+#     if request.method == 'POST': # If the form has been submitted...
+#         form = OccurrenceForm(request.POST)# A form bound to the POST data
+#         if form.is_valid():
+#             form.save()
+#             messages.add_message(request, messages.INFO, "Occurrence added successfully.")
+#             returnDict = {'ref': request.POST["ref"],'location':request.POST["location"],'taxon':request.POST["taxon"]}
+#
+#             #test if presenseAbsenceOnly was checked, and add to return dict if so.
+#             #this check is necessary because an unchecked box on the form will not be in post data, and will return MultiValueDictKeyError
+#             try:
+#                 returnDict["presenceAbsenceOnly"] = request.POST["presenceAbsenceOnly"]
+#             except:
+#                 pass
+#
+#             returnedForm = OccurrenceForm(initial=returnDict)
+#             #returnedForm.fields["taxon"].queryset = taxaQS
+#             return render_to_response("enter_data.html",# Redirect after POST
+#                             {"form":returnedForm},
+#                          RequestContext(request))
+#     else:
+#         form = OccurrenceForm() # An unbound form
+#         #form.fields["taxon"].queryset = taxaQS
+#     return render_to_response("enter_data.html",
+#                             {"form":form},
+#                          RequestContext(request))
 @permission_required("census_paleo.occurrence_add")
 def enter_occurrence(request):
-    if request.method == 'POST': # If the form has been submitted...
-        form = OccurrenceForm(request.POST)# A form bound to the POST data
+    if request.method == 'POST':
+        errorMessage = None
+        successMessage = None
+        form = OccurrenceForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.add_message(request, messages.INFO, "Occurrence added successfully.")
-            returnDict = {'ref': request.POST["ref"],'location':request.POST["location"],'taxon':request.POST["taxon"]}
-
-            #test if presenseAbsenceOnly was checked, and add to return dict if so.
-            #this check is necessary because an unchecked box on the form will not be in post data, and will return MultiValueDictKeyError
-            try:
-                returnDict["presenceAbsenceOnly"] = request.POST["presenceAbsenceOnly"]
-            except:
-                pass
-
-            returnedForm = OccurrenceForm(initial=returnDict)
-            #returnedForm.fields["taxon"].queryset = taxaQS
-            return render_to_response("enter_data.html",# Redirect after POST
-                            {"form":returnedForm},
-                         RequestContext(request))
+            successMessage = "Success! Occurrence has been saved."
+        else:
+            errorMessage = []
+            for key,value in form.errors.iteritems():
+                errorMessage.append(str(value))
+        response = json.dumps({'successMessage': successMessage, 'errorMessage':errorMessage})
+        return HttpResponse(response, content_type="application/json")
     else:
-        form = OccurrenceForm() # An unbound form
-        #form.fields["taxon"].queryset = taxaQS
+        form = OccurrenceForm()
     return render_to_response("enter_data.html",
                             {"form":form},
                          RequestContext(request))
