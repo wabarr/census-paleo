@@ -31,5 +31,5 @@ urlpatterns = patterns('',
     url(r'^enter_occurrence/$', enter_occurrence, name="add_occurrence"),
     url(r'^occurrence_table_json/$',occurrence_table_json),
     #url(r'^api/', include(v1_api.urls)),
-    url(r'^$', census_home),
+    url(r'^$', ViewOccurrences.as_view()),
 )
