@@ -18,7 +18,7 @@ Be sure to load datatables css in the header of any template calling this.
         "fnRowCallback": function (nRow, aData, iDisplayIndex) {
             // Bind click event
             $(nRow).click(function() {
-                  window.location.href='/occurrences/' + aData[0];
+                  window.open('/occurrences/' + aData[0]);
             });
             return nRow;
        },
