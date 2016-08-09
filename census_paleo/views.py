@@ -16,6 +16,8 @@ from django_pandas.io import read_frame
 from django.utils.decorators import method_decorator
 
 
+
+
 @login_required
 def sites(request):
      return render_to_response('sites.html',
@@ -77,6 +79,35 @@ def occurrences_ajax(request):
         eachDict["id"] = each.id
         resp.append(eachDict)
     return HttpResponse(json.dumps(resp), content_type="application/json")
+
+@login_required
+def occurrence_table_json(request):
+    filterArgs = {}
+    for key,value in request.GET.iteritems():
+        if key <> "_":
+            if value <> "":
+                filterArgs[key] = value
+    #fieldsToGet = ["location","taxon","abundance","ref"]
+    if filterArgs:
+        occurrences = occurrence.objects.filter(** filterArgs)
+    else:
+        occurrences = occurrence.objects.all()
+    #note, normally I could just use values.list with * fieldsToGet, in the above ifelse statement
+    #however, I need to get the unicode methods for several fields, so I need to create the values list manually
+    formattedOccs = [[eachOcc.id,
+                    eachOcc.location.__unicode__(),
+                    eachOcc.taxon.__unicode__(),
+                    eachOcc.abundance,
+                    eachOcc.ref.__unicode__()] for eachOcc in occurrences]
+
+
+    response = HttpResponse(content_type='application/json')
+
+    responsedict = {"data":[]}
+    for conn in formattedOccs:
+        responsedict["data"].append(conn)
+    response.write(json.dumps(responsedict))
+    return response
 
 @login_required
 def occurrences(request):
