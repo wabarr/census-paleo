@@ -111,3 +111,7 @@ input[type=submit] {
 .results_on_deck .ui-icon.ui-icon-trash {
     margin-right:6px;
 }
+
+.labelrow > p {
+    font-weight: bold;
+}
