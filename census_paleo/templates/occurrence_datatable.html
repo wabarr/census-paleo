@@ -2,6 +2,7 @@
 Included in occurrence_list.html and anywhere else it is needed
 Be sure to load datatables css in the header of any template calling this.
 {% endcomment %}
+
 <table id="occurrence-table" style="width: 100%;" class="display compact">
     <thead>
         <tr class="headerRow"><td>ID</td><td>Location</td><td>Taxon</td><td>Abundance</td><td>Reference</td></tr>
@@ -14,8 +15,23 @@ Be sure to load datatables css in the header of any template calling this.
         var table = $('#occurrence-table').DataTable({
         "ajax":"/occurrence_table_json/",
         "lengthMenu": [[-1, 50, 100], ["All", 50, 100]],
+        "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+            // Bind click event
+            $(nRow).click(function() {
+                  window.location.href='/occurrences/' + aData[0];
+            });
+            return nRow;
+       },
+           "oLanguage": {
+                            "sSearch": "Search:  ",
+                            "sZeroRecords": "No matching occurrences.",
+                },
         });
+        $('.dataTables_length').hide();
+        $('.dataTables_paginate').hide();
+        $('.dataTables_filter').append('&nbsp;&nbsp;&nbsp;&nbsp;Click on any row for more details.');
         $('#occurrence-table').show();
+
         {% comment %}Reload table data every 10 seconds{% endcomment %}
         setInterval( function () {
             table.ajax.reload();
