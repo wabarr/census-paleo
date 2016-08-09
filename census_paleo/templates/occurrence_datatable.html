@@ -16,10 +16,10 @@ Be sure to load datatables css in the header of any template calling this.
         "lengthMenu": [[-1, 50, 100], ["All", 50, 100]],
         });
         $('#occurrence-table').show();
-        {% comment %}Reload table data every 5 seconds{% endcomment %}
+        {% comment %}Reload table data every 10 seconds{% endcomment %}
         setInterval( function () {
             table.ajax.reload();
-        }, 5000 );
+        }, 10000 );
 
     } );
 </script>
