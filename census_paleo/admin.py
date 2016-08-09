@@ -20,26 +20,26 @@ class taxonomyAdmin(admin.ModelAdmin):
     list_filter = ['tribe','taxonRank', "family"]
     list_editable = ["habitat", "diet"]
     search_fields = ["genusName", "specificEpithet"]
-    inlines = [OccurrenceInline, ]
+    #inlines = [OccurrenceInline, ]
 
 
 class censusLocationAdmin(AjaxSelectAdmin):
     list_display = ("fullName","shortName","country","latitude","longitude", "WDPAID")
-    inlines = [OccurrenceInline, ]
+    #inlines = [OccurrenceInline, ]
     search_fields = ["fullName", "shortName"]
 
 
 
 
 class fossilLocationAdmin(admin.ModelAdmin):
-    inlines = [OccurrenceInline, ]
+    #inlines = [OccurrenceInline, ]
     search_fields = ["fullName", "shortName"]
 
 
 class referenceAdmin(admin.ModelAdmin):
     list_display = ["authorshortstring", "year","dataEntryComplete"]
     list_editable = ["year","dataEntryComplete"]
-    inlines = [OccurrenceInline,]
+    #inlines = [OccurrenceInline,]
 
 admin.site.register(reference, referenceAdmin)
 admin.site.register(taxonomy,taxonomyAdmin)
