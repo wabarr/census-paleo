@@ -186,33 +186,6 @@ def census_home(request):
                                 {},
                              RequestContext(request))
 
-# @permission_required("census_paleo.occurrence_add")
-# def enter_occurrence(request):
-#     if request.method == 'POST': # If the form has been submitted...
-#         form = OccurrenceForm(request.POST)# A form bound to the POST data
-#         if form.is_valid():
-#             form.save()
-#             messages.add_message(request, messages.INFO, "Occurrence added successfully.")
-#             returnDict = {'ref': request.POST["ref"],'location':request.POST["location"],'taxon':request.POST["taxon"]}
-#
-#             #test if presenseAbsenceOnly was checked, and add to return dict if so.
-#             #this check is necessary because an unchecked box on the form will not be in post data, and will return MultiValueDictKeyError
-#             try:
-#                 returnDict["presenceAbsenceOnly"] = request.POST["presenceAbsenceOnly"]
-#             except:
-#                 pass
-#
-#             returnedForm = OccurrenceForm(initial=returnDict)
-#             #returnedForm.fields["taxon"].queryset = taxaQS
-#             return render_to_response("enter_data.html",# Redirect after POST
-#                             {"form":returnedForm},
-#                          RequestContext(request))
-#     else:
-#         form = OccurrenceForm() # An unbound form
-#         #form.fields["taxon"].queryset = taxaQS
-#     return render_to_response("enter_data.html",
-#                             {"form":form},
-#                          RequestContext(request))
 @login_required
 def enter_occurrence(request):
     if request.method == 'POST':
