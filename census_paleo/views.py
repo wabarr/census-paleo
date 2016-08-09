@@ -213,7 +213,7 @@ def census_home(request):
 #     return render_to_response("enter_data.html",
 #                             {"form":form},
 #                          RequestContext(request))
-@permission_required("census_paleo.occurrence_add")
+@login_required
 def enter_occurrence(request):
     if request.method == 'POST':
         errorMessage = None
