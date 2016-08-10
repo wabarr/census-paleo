@@ -6,7 +6,7 @@ from census_paleo.models import *
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
 from django.contrib import messages
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import MultipleObjectsReturned
 from django.forms.models import modelform_factory
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
@@ -287,3 +287,17 @@ def get_taxon_info_before_adding(request):
         {"form":theForm},
         RequestContext(request)
     )
+
+def resolve_taxon(request):
+    # this is pretty bare bones
+    filterArgs = {}
+    for key, value in request.GET.iteritems():
+        if key <> "_":
+            if value <> "":
+                filterArgs[key] = value
+    try:
+        match = taxonomy.objects.get(**filterArgs).id
+    except Exception as e:
+        match = e.message
+
+    return HttpResponse(json.dumps(match), content_type="application/json")
