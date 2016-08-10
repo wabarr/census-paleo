@@ -1,5 +1,8 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from choices_functional_trait import *
+from choices_models import *
+from choices_taxonomy import *
 
 class reference(models.Model):
     authorshortstring = models.CharField(max_length=100)
@@ -21,96 +24,6 @@ class reference(models.Model):
 
     class Meta:
         db_table = 'reference'
-
-# #choices for upcoming taxonomy class
-CHOICES_KINGDOM = (
-("Animalia", "Animalia"),
-)
-
-CHOICES_PHYLUM = (
-("Chordata", "Chordata"),
-)
-
-CHOICES_CLASS = (
-("Mammalia", "Mammalia"),
-("Reptilia", "Reptilia"),
-("Pisces", "Pisces"),
-("Aves", "Aves"),
-("Amphibia", "Amphibia"),
-)
-
-CHOICES_ORDER = (
-("ARTIODACTYLA", "ARTIODACTYLA"),
-("CARNIVORA", "CARNIVORA"),
-("PERISSODACTYLA", "PERISSODACTYLA"),
-("PRIMATES", "PRIMATES"),
-("PROBOSCIDEA", "PROBOSCIDEA"),
-("RODENTIA", "RODENTIA"),
-("AFROSORICIDA", "AFROSORICIDA"),
-("CETACEA", "CETACEA"),
-("CHIROPTERA", "CHIROPTERA"),
-("CINGULATA", "CINGULATA"),
-("DASYUROMORPHIA", "DASYUROMORPHIA"),
-("DERMOPTERA", "DERMOPTERA"),
-("DIDELPHIMORPHIA", "DIDELPHIMORPHIA"),
-("DIPROTODONTIA", "DIPROTODONTIA"),
-("ERINACEOMORPHA", "ERINACEOMORPHA"),
-("HYRACOIDEA", "HYRACOIDEA"),
-("LAGOMORPHA", "LAGOMORPHA"),
-("MACROSCELIDEA", "MACROSCELIDEA"),
-("MICROBIOTHERIA", "MICROBIOTHERIA"),
-("MONOTREMATA", "MONOTREMATA"),
-("NOTORYCTEMORPHIA", "NOTORYCTEMORPHIA"),
-("PAUCITUBERCULATA", "PAUCITUBERCULATA"),
-("PERAMELEMORPHIA", "PERAMELEMORPHIA"),
-("PHOLIDOTA", "PHOLIDOTA"),
-("PILOSA", "PILOSA"),
-("SCANDENTIA", "SCANDENTIA"),
-("SIRENIA", "SIRENIA"),
-("SORICOMORPHA", "SORICOMORPHA"),
-("TUBULIDENTATA", "TUBULIDENTATA"),
-
-)
-
-CHOICES_RANK = (
-('CLASS', 'CLASS'),
-('ORDER', 'ORDER'),
-('FAMILY', 'FAMILY'),
-('SUBFAMILY', 'SUBFAMILY'),
-('TRIBE', 'TRIBE'),
-('GENUS', 'GENUS'),
-('SPECIES', 'SPECIES'),
-('SUBSPECIES', 'SUBSPECIES'),
-('INFRAORDER', 'INFRAORDER'),
-('SUBGENUS', 'SUBGENUS'),
-('SUBORDER', 'SUBORDER'),
-('SUPERFAMILY', 'SUPERFAMILY'),
-)
-
-CHOICES_tribe = (
-("Tragelaphini", "Tragelaphini"),
-("Cephalophini", "Cephalophini"),
-("Bovini", "Bovini"),
-("Hippotragini", "Hippotragini"),
-("Reduncini", "Reduncini"),
-("Alcelaphini", "Alcelaphini"),
-("Antilopini", "Antilopini"),
-("Aepycerotini", "Aepycerotini"),
-("Neotragini", "Neotragini"),
-)
-
-CHOICES_HABITAT = (
-    ("Forest", "Forest"),
-    ("Heavy Cover", "Heavy Cover"),
-    ("Light Cover", "Light Cover"),
-    ("Grassland", "Grassland"),
-)
-
-CHOICES_DIET = (
-    ("Grazer", "Grazer"),
-    ("Browser", "Browser"),
-    ("Mixed Feeder", "Mixed Feeder"),
-)
 
 
 class taxonomy(models.Model):
@@ -168,71 +81,6 @@ class taxonomy(models.Model):
             name += " **"
 
         return name
-
-
-CHOICES_georefMethod = (
-('None', 'None'),
-('Publication', 'Publication'),
-('GetLatLon.com', 'GetLatLon.com'),
-('GoogleEarth', 'GoogleEarth'),
-)
-
-CHOICES_AfricanCountry = (
-("Algeria", "Algeria"),
-("Angola", "Angola"),
-("Benin", "Benin"),
-("Botswana", "Botswana"),
-("Burkina Faso", "Burkina Faso"),
-("Burundi", "Burundi"),
-("Cameroon", "Cameroon"),
-("Cape Verde", "Cape Verde"),
-("Central African Republic", "Central African Republic"),
-("Chad", "Chad"),
-("Congo, Democratic Republic of", "Congo, Democratic Republic of"),
-("Cote dIvoire (Ivory Coast),", "Cote dIvoire (Ivory Coast),"),
-("Djibouti", "Djibouti"),
-("Egypt", "Egypt"),
-("Equatorial Guinea", "Equatorial Guinea"),
-("Eritrea", "Eritrea"),
-("Ethiopia", "Ethiopia"),
-("Gabon", "Gabon"),
-("Gambia", "Gambia"),
-("Ghana", "Ghana"),
-("Guinea", "Guinea"),
-("Guinea-Bissau", "Guinea-Bissau"),
-("Kenya", "Kenya"),
-("Lesotho", "Lesotho"),
-("Liberia", "Liberia"),
-("Libya", "Libya"),
-("Madagascar", "Madagascar"),
-("Malawi", "Malawi"),
-("Mali", "Mali"),
-("Mauritania", "Mauritania"),
-("Mauritius", "Mauritius"),
-("Morocco", "Morocco"),
-("Mozambique", "Mozambique"),
-("Namibia", "Namibia"),
-("Niger", "Niger"),
-("Nigeria", "Nigeria"),
-("Rwanda", "Rwanda"),
-("Sao Tome and Principe", "Sao Tome and Principe"),
-("Senegal", "Senegal"),
-("Seychelles", "Seychelles"),
-("Sierra Leone", "Sierra Leone"),
-("Somalia", "Somalia"),
-("South Africa", "South Africa"),
-("South Sudan", "South Sudan"),
-("Sudan", "Sudan"),
-("Swaziland", "Swaziland"),
-("Tanzania", "Tanzania"),
-("Togo", "Togo"),
-("Tunisia", "Tunisia"),
-("Western Sahara", "Western Sahara"),
-("Uganda", "Uganda"),
-("Zambia", "Zambia"),
-("Zimbabwe", "Zimbabwe"),
-)
-
 
 class censusLocation(models.Model):
     fullName = models.CharField(max_length=100)
