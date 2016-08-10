@@ -22,10 +22,15 @@ Be sure to load datatables css in the header of any template calling this.
             });
             return nRow;
        },
-           "oLanguage": {
-                            "sSearch": "Search:  ",
-                            "sZeroRecords": "No matching occurrences.",
-                },
+       "oLanguage": {
+                        "sSearch": "Search:  ",
+                        "sZeroRecords": "No matching occurrences.",
+            },
+        "columnDefs": [
+            {
+                "targets": [ 0 ],
+                "visible": false,
+            }]
         });
         $('.dataTables_length').hide();
         $('.dataTables_paginate').hide();
