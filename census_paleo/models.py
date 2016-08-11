@@ -45,8 +45,8 @@ class taxonomy(models.Model):
     ref = models.ForeignKey(reference)
     Fernandez_Vrba_2005_Name = models.CharField(max_length=255, null=True, blank=True)
     BinindaEmonds_2008_Name = models.CharField(max_length=255, null=True, blank=True)
-    habitat = models.CharField(max_length=25, null=True, blank=True, choices = CHOICES_HABITAT)
-    diet = models.CharField(max_length=25, null=True, blank=True, choices = CHOICES_DIET)
+    #habitat = models.CharField(max_length=25, null=True, blank=True, choices = CHOICES_HABITAT)
+    #diet = models.CharField(max_length=25, null=True, blank=True, choices = CHOICES_DIET)
 
 
     class Meta:
@@ -142,3 +142,18 @@ class occurrence(models.Model):
             raise ValidationError("You must EITHER enter an abundance value OR indicate that the data is presence/absence only.")
         if self.issue and not self.notes:
             raise ValidationError("You said there was an issue with this data...so you must include some details in the notes field")
+
+class functional_traits(models.Model):
+    taxon = models.ForeignKey(taxonomy, null=False, blank=False)
+    browse_graze = models.CharField(max_length=100, null=True, blank=True, choices=CHOICES_BROWSEGRAZE)
+    habitat = models.CharField(max_length=100, null=True, blank=True, choices=CHOICES_HABITAT)
+    bodysize_brain_bunn = models.CharField(max_length=100, null=True, blank=True, choices=CHOICES_SIZE_BRAIN_BUNN)
+    bodysize_lintulaakso = models.CharField(max_length=100, null=True, blank=True, choices=CHOICES_SIZE_LINTULAAKSO)
+    bodysize_species_mean_kg = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
+    locomotor_reed = models.CharField(max_length=100, null=True, blank=True, choices=CHOICES_LOCOMOTOR_REED)
+    trophic_lintulaakso = models.CharField(max_length=100, null=True, blank=True, choices=CHOICES_TROPHIC_LINTULAAKSO)
+
+    def __unicode__(self):
+        return 'Traits of ' + self.taxon.__unicode__()
+    class Meta:
+        db_table = 'functional_traits'

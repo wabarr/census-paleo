@@ -16,9 +16,8 @@ class occurrenceAdmin(AjaxSelectAdmin):
     form = make_ajax_form(occurrence, {'ref': 'referenceLookup', 'location':'locationLookup', 'taxon':'taxonLookup'})
 
 class taxonomyAdmin(admin.ModelAdmin):
-    list_display = ("taxonRank", "family","subFamily","tribe","genusName","specificEpithet", "habitat", "diet")
+    list_display = ("taxonRank", "family","subFamily","tribe","genusName","specificEpithet")
     list_filter = ['tribe','taxonRank', "family"]
-    list_editable = ["habitat", "diet"]
     search_fields = ["genusName", "specificEpithet"]
     #inlines = [OccurrenceInline, ]
 
@@ -41,8 +40,12 @@ class referenceAdmin(admin.ModelAdmin):
     list_editable = ["year","dataEntryComplete"]
     #inlines = [OccurrenceInline,]
 
+class functionalTraitAdmin(admin.ModelAdmin):
+    list_display = ['taxon','browse_graze','habitat','bodysize_brain_bunn','bodysize_lintulaakso','locomotor_reed','trophic_lintulaakso']
+
 admin.site.register(reference, referenceAdmin)
 admin.site.register(taxonomy,taxonomyAdmin)
 admin.site.register(censusLocation,censusLocationAdmin)
 admin.site.register(occurrence, occurrenceAdmin)
 admin.site.register(fossilLocation, fossilLocationAdmin)
+admin.site.register(functional_traits, functionalTraitAdmin)
