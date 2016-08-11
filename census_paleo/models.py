@@ -144,7 +144,7 @@ class occurrence(models.Model):
             raise ValidationError("You said there was an issue with this data...so you must include some details in the notes field")
 
 class functional_traits(models.Model):
-    taxon = models.ForeignKey(taxonomy, null=False, blank=False)
+    taxon = models.ForeignKey(taxonomy, null=False, blank=False, unique=True)
     browse_graze = models.CharField(max_length=100, null=True, blank=True, choices=CHOICES_BROWSEGRAZE)
     habitat = models.CharField(max_length=100, null=True, blank=True, choices=CHOICES_HABITAT)
     bodysize_brain_bunn = models.CharField(max_length=100, null=True, blank=True, choices=CHOICES_SIZE_BRAIN_BUNN)
@@ -157,3 +157,5 @@ class functional_traits(models.Model):
         return 'Traits of ' + self.taxon.__unicode__()
     class Meta:
         db_table = 'functional_traits'
+        verbose_name = "functional trait"
+        verbose_name_plural = "functional traits"
