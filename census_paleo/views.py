@@ -14,6 +14,8 @@ from django.contrib.auth.decorators import login_required, permission_required
 from census_paleo.forms import OccurrenceForm, GetTaxonInfoForm, TaxonForm
 from django_pandas.io import read_frame
 from django.utils.decorators import method_decorator
+#from django.forms.models import inlineformset_factory
+
 
 
 
@@ -186,6 +188,27 @@ def census_home(request):
                                 {},
                              RequestContext(request))
 
+# @login_required
+# def enter_multiple_occurrences(request):
+#     OccurrenceFormset = inlineformset_factory(taxonomy, occurrence)
+#     try:
+#         taxon = taxonomy.objects.get(pk=request.GET['taxonID'])
+#     except:
+#         taxon = None
+#
+#     if request.method == 'POST':
+#         formset = OccurrenceFormset(request.POST, instance=taxon)
+#         if formset.is_valid():
+#             formset.save()
+#             messages.add_message(request, messages.INFO, "Success!")
+#         else:
+#             messages.add_message(request, messages.INFO, "Failure.....")
+#     else:
+#         formset = OccurrenceFormset(instance=taxon)
+#     return render_to_response("enter_multiple_occurrences.html",
+#                               {"formset": formset, 'taxon':taxon},
+#                               RequestContext(request))
+#
 @login_required
 def enter_occurrence(request):
     if request.method == 'POST':
@@ -265,8 +288,8 @@ def add_taxon(request):
         except:
             theForm = TaxonForm(request.POST)
             if theForm.is_valid():
-                theForm.save()
-                messages.add_message(request, messages.INFO, "Taxon added successfully.")
+                newID = theForm.save().id
+                messages.add_message(request, messages.INFO, "Success! Taxon {0} has been added.".format(str(newID)))
             else:
                 messages.add_message(request, messages.INFO, "There are one are more errors. Please correct them below.")
 
