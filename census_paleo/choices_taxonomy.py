@@ -73,5 +73,8 @@ CHOICES_tribe = (
 ("Antilopini", "Antilopini"),
 ("Aepycerotini", "Aepycerotini"),
 ("Neotragini", "Neotragini"),
+("Colobini","Colobini"),
+("Papionini","Papionini"),
+("Hominini","Hominini"),
 )
 
