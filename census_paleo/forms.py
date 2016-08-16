@@ -3,6 +3,8 @@ from django.forms import ModelForm, Form
 from census_paleo.models import occurrence, taxonomy
 from ajax_select import make_ajax_field
 
+
+
 class OccurrenceForm(ModelForm):
     taxon = make_ajax_field(occurrence, "taxon", "taxonLookup")
     ref = make_ajax_field(occurrence, "ref", "referenceLookup")
@@ -11,6 +13,7 @@ class OccurrenceForm(ModelForm):
     issue = forms.BooleanField(required=False, initial=False)
     class Meta:
         model = occurrence
+
 
 class TaxonForm(ModelForm):
     class Meta:
