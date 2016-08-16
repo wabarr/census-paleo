@@ -1,0 +1,59 @@
+{% extends "strongly_typed_no_sidebar.html" %}
+
+{% block title %}<title>Add multiple occurrences</title>{% endblock %}
+
+{% block header_block %}{% endblock %}
+
+{% block base_content %}
+<div id="main-wrapper">
+        {% include "census_navbar.html" %}
+
+				<!-- Main -->
+					<div id="main" class="container" style="width:60%;>
+						<div class="row">
+
+							<!-- Content -->
+								<div id="content" class="12u skel-cell-mainContent">
+                                        {% if messages %}
+                                                {% for message in messages %}
+                                                    <div class="errorlist">{{ message }}</div>
+                                                {% endfor %}
+                                            {% endif %}
+									<!-- Post -->
+										<article class="is-post" id="articleContainer" style="border: 1px solid #2B8CBE; border-radius: 7px; padding:10px;">
+                                            {% if taxon %}
+                                            <h2>{{ taxon }} Occurrences</h2>
+                                            <form action="" method="post" class="occurrenceForm"> {% csrf_token %}
+                                                <table>
+                                                <thead>
+                                                    {% for form in formset.forms %}
+                                                        {% if forloop.first %}
+                                                            {% for field in form.visible_fields %}
+                                                                <th>{{ field.label_tag }}</th>
+                                                            {% endfor %}
+                                                        {% endif %}
+                                                </thead>
+                                                <tbody>
+                                                        <tr>
+                                                            {% for field in form.visible_fields %}
+                                                                <td>{{ field }}</td>
+                                                            {% endfor %}
+                                                        </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                            <input type="submit" value="Submit Data">
+                                            {{ formset.management_form }}
+                                            </form>
+                                            {% else %}
+                                                <h2>No matching taxon</h2>
+                                            {% endif %}
+
+										</article>
+								</div>
+						</div>
+					</div>
+
+			</div>
+
+{% endblock %}
