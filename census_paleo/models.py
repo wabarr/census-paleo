@@ -55,6 +55,7 @@ class taxonomy(models.Model):
         db_table = 'taxonomy'
         verbose_name = "taxon"
         verbose_name_plural = "taxa"
+        unique_together = ['tclass','order','family','subfamily','tribe','genus','species','infraspecificEpithet','taxonRank','identificationQualifier']
 
     def __unicode__(self):
         if str(self.taxonRank).lower() == 'tclass':
@@ -95,7 +96,6 @@ class taxonomy(models.Model):
                 )
 
     def clean(self):
-
         if self.taxonRank == "species":
             self.validate_implied_taxon('order',order=self.order)
             self.validate_implied_taxon('family', family=self.family)
