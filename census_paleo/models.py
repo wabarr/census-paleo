@@ -80,7 +80,7 @@ class taxonomy(models.Model):
             name = self.identificationQualifier + " " + name
 
         if not self.extant:
-            name += " **"
+            name += u" ✝"
 
         return name
 
