@@ -95,6 +95,11 @@ class taxonomy(models.Model):
                 )
 
     def clean(self):
+        try:
+            taxonomy.objects.get(taxonRank=self.taxonRank)
+        except:
+            pass
+
         if self.taxonRank == "SPECIES":
             self.validate_implied_taxon('ORDER',order=self.order)
             self.validate_implied_taxon('FAMILY', family=self.family)
