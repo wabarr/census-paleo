@@ -57,8 +57,8 @@ class taxonomy(models.Model):
         verbose_name_plural = "taxa"
 
     def __unicode__(self):
-        if str(self.taxonRank).lower() == 'class':
-            name =  self.tclass + " (" + self.taxonRank + ")"
+        if str(self.taxonRank).lower() == 'tclass':
+            name =  self.tclass + " (class)"
         elif str(self.taxonRank).lower() == 'order':
             name =  self.order + " (" + self.taxonRank + ")"
         elif str(self.taxonRank).lower() == 'family':
@@ -95,10 +95,6 @@ class taxonomy(models.Model):
                 )
 
     def clean(self):
-        try:
-            taxonomy.objects.get(taxonRank=self.taxonRank)
-        except:
-            pass
 
         if self.taxonRank == "species":
             self.validate_implied_taxon('order',order=self.order)
