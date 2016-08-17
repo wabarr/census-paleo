@@ -34,10 +34,10 @@ class taxonomy(models.Model):
     tclass = models.CharField(max_length=100, null=True, blank=True, choices=CHOICES_CLASS, verbose_name="class")
     order = models.CharField(max_length=100, null=True, blank=True, choices=CHOICES_ORDER)
     family = models.CharField(max_length=100, null=True, blank=True)
-    subFamily = models.CharField(max_length=100, null=True, blank=True)
+    subfamily = models.CharField(max_length=100, null=True, blank=True)
     tribe = models.CharField(max_length=100, null=True, blank=True, choices=CHOICES_tribe)
-    genusName = models.CharField(max_length=100, null=True, blank=True, verbose_name = "genus")
-    specificEpithet = models.CharField(max_length=100, null=True, blank=True, verbose_name = "species")
+    genus = models.CharField(max_length=100, null=True, blank=True, verbose_name = "genus")
+    species = models.CharField(max_length=100, null=True, blank=True, verbose_name = "species")
     infraspecificEpithet = models.CharField(max_length=100, null=True, blank=True)
     identificationQualifier = models.CharField(max_length=100, null=True, blank=True)
     extant = models.BooleanField()
@@ -64,17 +64,17 @@ class taxonomy(models.Model):
         elif str(self.taxonRank).lower() == 'family':
             name =  self.family + " (" + self.taxonRank + ")"
         elif str(self.taxonRank).lower() == 'subfamily':
-            name =   self.subFamily + " (" + self.taxonRank + ")"
+            name =   self.subfamily + " (" + self.taxonRank + ")"
         elif str(self.taxonRank).lower() == 'tribe':
             name =   self.tribe + " (" + self.taxonRank + ")"
         elif str(self.taxonRank).lower() == 'genus':
-            name =   self.genusName + " (" + self.taxonRank + ")"
+            name =   self.genus + " (" + self.taxonRank + ")"
         elif str(self.taxonRank).lower() == 'species':
-            name =   self.genusName + " " + self.specificEpithet + " (" + self.taxonRank + ")"
+            name =   self.genus + " " + self.species + " (" + self.taxonRank + ")"
         elif str(self.taxonRank).lower() == 'subspecies':
-            name =  self.genusName + " " + self.specificEpithet + " " + self.infraspecificEpithet + " (" + self.taxonRank + ")"
+            name =  self.genus + " " + self.species + " " + self.infraspecificEpithet + " (" + self.taxonRank + ")"
         else:
-            name =  " "
+            name =  " (" + self.taxonRank + ")"
 
         if self.identificationQualifier:
             name = self.identificationQualifier + " " + name
@@ -100,26 +100,26 @@ class taxonomy(models.Model):
         except:
             pass
 
-        if self.taxonRank == "SPECIES":
-            self.validate_implied_taxon('ORDER',order=self.order)
-            self.validate_implied_taxon('FAMILY', family=self.family)
-            self.validate_implied_taxon('SUBFAMILY', subFamily=self.subFamily)
-            self.validate_implied_taxon('TRIBE', tribe=self.tribe)
-            self.validate_implied_taxon('GENUS', genusName=self.genusName)
-        if self.taxonRank == "GENUS":
-            self.validate_implied_taxon('ORDER', order=self.order)
-            self.validate_implied_taxon('FAMILY', family=self.family)
-            self.validate_implied_taxon('SUBFAMILY', subFamily=self.subFamily)
-            self.validate_implied_taxon('TRIBE', tribe=self.tribe)
-        if self.taxonRank == "TRIBE":
-            self.validate_implied_taxon('ORDER', order=self.order)
-            self.validate_implied_taxon('FAMILY', family=self.family)
-            self.validate_implied_taxon('SUBFAMILY', subFamily=self.subFamily)
-        if self.taxonRank == "SUBFAMILY":
-            self.validate_implied_taxon('ORDER', order=self.order)
-            self.validate_implied_taxon('FAMILY', family=self.family)
-        if self.taxonRank == "FAMILY":
-            self.validate_implied_taxon('ORDER', order=self.order)
+        if self.taxonRank == "species":
+            self.validate_implied_taxon('order',order=self.order)
+            self.validate_implied_taxon('family', family=self.family)
+            self.validate_implied_taxon('subfamily', subfamily=self.subfamily)
+            self.validate_implied_taxon('tribe', tribe=self.tribe)
+            self.validate_implied_taxon('genus', genus=self.genus)
+        if self.taxonRank == "genus":
+            self.validate_implied_taxon('order', order=self.order)
+            self.validate_implied_taxon('family', family=self.family)
+            self.validate_implied_taxon('subfamily', subfamily=self.subfamily)
+            self.validate_implied_taxon('tribe', tribe=self.tribe)
+        if self.taxonRank == "tribe":
+            self.validate_implied_taxon('order', order=self.order)
+            self.validate_implied_taxon('family', family=self.family)
+            self.validate_implied_taxon('subfamily', subfamily=self.subfamily)
+        if self.taxonRank == "subfamily":
+            self.validate_implied_taxon('order', order=self.order)
+            self.validate_implied_taxon('family', family=self.family)
+        if self.taxonRank == "family":
+            self.validate_implied_taxon('order', order=self.order)
 
 class censusLocation(models.Model):
     fullName = models.CharField(max_length=100)

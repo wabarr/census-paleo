@@ -281,7 +281,7 @@ def add_taxon(request):
                 messages.add_message(request, messages.INFO, "Couldn't autopopulate taxonomy data. You will have to do it by hand.")
                 theForm = TaxonForm()
             else:
-                initialDict = theTaxon.values("kingdom", "phylum", "tclass", "order", "family","subFamily","tribe","genusName","specificEpithet")[0]
+                initialDict = theTaxon.values("kingdom", "phylum", "tclass", "order", "family","subfamily","tribe","genus","species")[0]
                 theForm = TaxonForm(initial = initialDict)
 
         #if we are in POST mode, but get exception because there is no "taxon" field in post data, then we need are submitting data, and need to validate the form and save

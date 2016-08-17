@@ -50,18 +50,18 @@ CHOICES_ORDER = (
 )
 
 CHOICES_RANK = (
-('CLASS', 'CLASS'),
-('ORDER', 'ORDER'),
-('FAMILY', 'FAMILY'),
-('SUBFAMILY', 'SUBFAMILY'),
-('TRIBE', 'TRIBE'),
-('GENUS', 'GENUS'),
-('SPECIES', 'SPECIES'),
-('SUBSPECIES', 'SUBSPECIES'),
-('INFRAORDER', 'INFRAORDER'),
-('SUBGENUS', 'SUBGENUS'),
-('SUBORDER', 'SUBORDER'),
-('SUPERFAMILY', 'SUPERFAMILY'),
+('tclass', 'class'),
+('order', 'order'),
+('family', 'family'),
+('subfamily', 'subfamily'),
+('tribe', 'tribe'),
+('genus', 'genus'),
+('species', 'species'),
+('subspecies', 'subspecies'),
+('infraorder', 'infraorder'),
+('subgenus', 'subgenus'),
+('suborder', 'suborder'),
+('superfamily', 'superfamily'),
 )
 
 CHOICES_tribe = (

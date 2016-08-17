@@ -18,7 +18,7 @@ class occurrenceAdmin(AjaxSelectAdmin):
 class taxonomyAdmin(admin.ModelAdmin):
     list_display = ['__unicode__','extant','taxonRank','ref']
     list_filter = ['tribe','taxonRank', "family"]
-    search_fields = ["genusName", "specificEpithet", "tribe", "subFamily", "family", "order"]
+    search_fields = ["genus", "species", "tribe", "subfamily", "family", "order"]
     list_editable = ['extant','taxonRank','ref']
     #inlines = [OccurrenceInline, ]
 

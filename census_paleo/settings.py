@@ -178,7 +178,7 @@ LOGGING = {
 }
 
 AJAX_LOOKUP_CHANNELS = {
-    #  simple: search taxonomy.objects.filter(specificEpithet__icontains=q)
+    #  simple: search taxonomy.objects.filter(species__icontains=q)
     'taxonLookup'  : ('ajax_select.lookups', 'taxonLookup'),
     'locationLookup'  : ('ajax_select.lookups', 'locationLookup'),
     'referenceLookup'  : ('ajax_select.lookups', 'referenceLookup'),

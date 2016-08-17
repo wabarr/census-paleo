@@ -33,7 +33,7 @@ class TaxonomyResource(ModelResource):
             "tribe" : ALL,
             "family" : ALL,
             "extant" : ALL,
-            "subFamily" : ALL,
+            "subfamily" : ALL,
             "taxonRank" : ALL,
 
         }
