@@ -24,7 +24,7 @@ class taxonomyAdmin(admin.ModelAdmin):
 
 
 class censusLocationAdmin(AjaxSelectAdmin):
-    list_display = ("fullName","shortName","country","latitude","longitude", "WDPAID")
+    list_display = ('id',"fullName","shortName","country","latitude","longitude", "WDPAID")
     #inlines = [OccurrenceInline, ]
     search_fields = ["fullName", "shortName"]
 
