@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 from django.core.exceptions import ValidationError
 from choices_functional_trait import *
 from choices_models import *
 from choices_taxonomy import *
+from django.core.exceptions import ObjectDoesNotExist
 
 class reference(models.Model):
     authorshortstring = models.CharField(max_length=100)
@@ -81,6 +83,38 @@ class taxonomy(models.Model):
             name += " **"
 
         return name
+
+    def validate_implied_taxon(self,rankString, **kwargs):
+        modelFieldName = kwargs.keys()[0] #need to do some tests here!
+        if getattr(self,modelFieldName):
+            try:
+                taxonomy.objects.get(taxonRank=rankString, **kwargs)
+            except ObjectDoesNotExist:
+                raise ValidationError(
+                    "This taxon implies the existence of '{0}' at rank of {1}. You must add it first".format(getattr(self,modelFieldName), rankString)
+                )
+
+    def clean(self):
+        if self.taxonRank == "SPECIES":
+            self.validate_implied_taxon('ORDER',order=self.order)
+            self.validate_implied_taxon('FAMILY', family=self.family)
+            self.validate_implied_taxon('SUBFAMILY', subFamily=self.subFamily)
+            self.validate_implied_taxon('TRIBE', tribe=self.tribe)
+            self.validate_implied_taxon('GENUS', genusName=self.genusName)
+        if self.taxonRank == "GENUS":
+            self.validate_implied_taxon('ORDER', order=self.order)
+            self.validate_implied_taxon('FAMILY', family=self.family)
+            self.validate_implied_taxon('SUBFAMILY', subFamily=self.subFamily)
+            self.validate_implied_taxon('TRIBE', tribe=self.tribe)
+        if self.taxonRank == "TRIBE":
+            self.validate_implied_taxon('ORDER', order=self.order)
+            self.validate_implied_taxon('FAMILY', family=self.family)
+            self.validate_implied_taxon('SUBFAMILY', subFamily=self.subFamily)
+        if self.taxonRank == "SUBFAMILY":
+            self.validate_implied_taxon('ORDER', order=self.order)
+            self.validate_implied_taxon('FAMILY', family=self.family)
+        if self.taxonRank == "FAMILY":
+            self.validate_implied_taxon('ORDER', order=self.order)
 
 class censusLocation(models.Model):
     fullName = models.CharField(max_length=100)
