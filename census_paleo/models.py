@@ -5,6 +5,7 @@ from choices_functional_trait import *
 from choices_models import *
 from choices_taxonomy import *
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import NON_FIELD_ERRORS
 
 class reference(models.Model):
     authorshortstring = models.CharField(max_length=100)
@@ -116,6 +117,30 @@ class taxonomy(models.Model):
             self.validate_implied_taxon('family', family=self.family)
         if self.taxonRank == "family":
             self.validate_implied_taxon('order', order=self.order)
+
+    def validate_unique(self, exclude=None):
+        try:
+            match = taxonomy.objects.filter(
+                kingdom = self.kingdom,
+                phylum = self.phylum,
+                tclass = self.tclass,
+                order = self.order,
+                family = self.family,
+                tribe = self.tribe,
+                genus = self.genus,
+                species = self.species,
+                infraspecificEpithet = self.infraspecificEpithet,
+                identificationQualifier=self.identificationQualifier,
+                taxonRank=self.taxonRank
+            )
+            if len(match) > 0:
+                raise ValidationError({NON_FIELD_ERRORS:'Matching taxon already exists'})
+        except ObjectDoesNotExist:
+            super(taxonomy, self).validate_unique()
+
+
+
+
 
 class censusLocation(models.Model):
     fullName = models.CharField(max_length=100)
