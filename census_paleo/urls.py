@@ -32,6 +32,8 @@ urlpatterns = patterns('',
     url(r'^enter_occurrence/$', enter_occurrence, name="add_occurrence"),
     url(r'^occurrence_table_json/$',occurrence_table_json),
     url(r'^resolve_taxon',resolve_taxon),
+    url(r'^CSV_upload_occurrences_chooser',CSV_occurrence_upload_chooser, name='CSV_occurrence_upload_chooser'),
+    url(r'^CSV_upload_occurrences',CSV_occurrence_upload_formset, name='CSV_occurrence_upload_formset'),
     #url(r'^api/', include(v1_api.urls)),
     url(r'^$', ViewOccurrences.as_view()),
 )

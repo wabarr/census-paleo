@@ -181,7 +181,7 @@ class occurrence(models.Model):
     ref = models.ForeignKey(reference, null=True, blank=False, )
     location = models.ForeignKey(censusLocation, null=True, blank=False)
     taxon = models.ForeignKey(taxonomy, null=True, blank=False)
-    presenceAbsenceOnly = models.BooleanField(default=False, verbose_name="Present")
+    presenceAbsenceOnly = models.BooleanField(default=True, verbose_name="Present")
     abundance = models.IntegerField(max_length=100, null=True, blank=True)
     issue = models.NullBooleanField(default=False)
     notes = models.CharField(max_length=200, null=True, blank=True, )

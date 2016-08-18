@@ -22,3 +22,10 @@ class TaxonForm(ModelForm):
 class GetTaxonInfoForm(Form):
     taxon = make_ajax_field(occurrence, "taxon", "taxonLookup")
 
+class CSVUploadForm(Form):
+    csvFile=forms.FileField(required=True, label="CSV file")
+    #taxonomyColumnName = forms.CharField(required=True,label="Taxonomy Column Name", initial='taxon')
+    #referenceColumnName = forms.CharField(required=True, label="Reference Column Name", initial='ref')
+    #locationColumnName = forms.CharField(required=True, label='Location Column Name', initial='location')
+    #presenceAbsenceData = forms.BooleanField(required=False, label="Presence Absence Data")
+

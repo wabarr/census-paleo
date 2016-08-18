@@ -1,0 +1,51 @@
+{% extends "strongly_typed_no_sidebar.html" %}
+
+{% block title %}<title>Upload CSV of Occurrences</title>{% endblock %}
+
+{% block header_block %}
+{% endblock %}
+
+
+{% block base_content %}
+<div id="main-wrapper">
+        {% include "census_navbar.html" %}
+
+				<!-- Main -->
+					<div id="main" class="container" style="width:80%;>
+						<div class="row">
+
+							<!-- Content -->
+								<div id="content" class="12u skel-cell-mainContent">
+                                    <h2>Choose File</h2>
+									<!-- Post -->
+
+
+                                            <form action="" method="post" enctype="multipart/form-data"> {% csrf_token %}
+                                                <div class="row">
+                                                    <div class="12u">
+                                                        {% if messages %}
+                                                            {% for message in messages %}
+                                                                <p class="success-added">{{ message }}</p>
+                                                            {% endfor %}
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="12u">
+                                                        {{ form.as_p }}
+                                                        <input type="submit">
+                                                    </div>
+                                                </div>
+
+
+                                            </form>
+
+
+								</div>
+
+						</div>
+					</div>
+
+			</div>
+
+{% endblock %}

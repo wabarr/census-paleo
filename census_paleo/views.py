@@ -7,15 +7,15 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
 from django.contrib import messages
 from django.core.exceptions import MultipleObjectsReturned
-from django.forms.models import modelform_factory
+from django.forms.models import modelform_factory,modelformset_factory
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.contrib.auth.decorators import login_required, permission_required
-from census_paleo.forms import OccurrenceForm, GetTaxonInfoForm, TaxonForm
+from census_paleo.forms import OccurrenceForm, GetTaxonInfoForm, TaxonForm, CSVUploadForm
 from django_pandas.io import read_frame
 from django.utils.decorators import method_decorator
-#from django.forms.models import inlineformset_factory
-
+from django.core.urlresolvers import reverse
+import csv
 
 
 
@@ -324,3 +324,48 @@ def resolve_taxon(request):
         match = e.message
 
     return HttpResponse(json.dumps(match), content_type="application/json")
+
+occ_formset_fields=('ref', 'taxon','location','presenceAbsenceOnly')
+
+
+@login_required
+def CSV_occurrence_upload_chooser(request):
+    if request.method == 'POST':
+        form = CSVUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            # check that column names match the field names in occurrence class
+            #check that there is a header
+            reader = csv.DictReader(request.FILES['csvFile'])
+            initialData = []
+            for row in reader:
+                initialData.append(row)
+            OccurrenceFormset = modelformset_factory(occurrence, fields=occ_formset_fields, extra=len(initialData))
+            formset = OccurrenceFormset(initial=initialData,queryset=occurrence.objects.none())
+            return render_to_response("CSV_upload_occurrences_formset.html",
+                               {"formset": formset},
+                               RequestContext(request))
+        else:
+            messages.add_message(request, messages.WARNING,'The form is not valid')
+    else:
+        form = CSVUploadForm()
+    return render_to_response("CSV_upload_occurrences_chooser.html",
+                            {"form":form},
+                         RequestContext(request))
+
+@login_required()
+def CSV_occurrence_upload_formset(request):
+    if request.method == 'POST':
+        OccurrenceFormset = modelformset_factory(occurrence, fields=occ_formset_fields)
+        formset = OccurrenceFormset(request.POST)
+        if formset.is_valid():
+            formset.save()
+            messages.add_message(request, messages.INFO, 'Successfully added')
+            return render_to_response("CSV_upload_occurrences_formset.html",
+                               {"formset": formset},
+                               RequestContext(request))
+        else:
+            return render_to_response("CSV_upload_occurrences_formset.html",
+                                      {"formset": formset},
+                                      RequestContext(request))
+    else:
+        return HttpResponseRedirect(reverse('CSV_occurrence_upload_chooser'))
