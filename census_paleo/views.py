@@ -349,7 +349,7 @@ def CSV_occurrence_upload_chooser(request):
             messages.add_message(request, messages.WARNING,'The form is not valid')
     else:
         form = CSVUploadForm()
-    return render_to_response("CSV_upload_occurrences_chooser.html",
+    return render_to_response("csv_upload_occurrences_chooser.html",
                             {"form":form, "upload_errors":upload_errors, "upload_successes":upload_successes},
                          RequestContext(request))
 
