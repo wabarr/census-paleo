@@ -36,7 +36,7 @@
                             <table>
                             <tr class="boldrow"><td>Taxon</td><td>Tribe</td><td>Reference</td><td>Abundance</td><td>Presence</td></tr>
                             {% for each in site_occurrences %}
-                                <tr onclick="window.open('/census/admin/census_paleo/occurrence/{{ each.id }}');" class="editablerow" ><td>{{ each.taxon}}</td><td>{{ each.taxon.tribe }}</td><td>{{ each.ref }}</td><td>{{ each.abundance }}</td><td>{{ each.presenceAbsenceOnly }}</td><td></td></tr>
+                                <tr onclick="window.open('/occurrences/{{ each.id }}');" class="editablerow" ><td>{{ each.taxon}}</td><td>{{ each.taxon.tribe }}</td><td>{{ each.ref }}</td><td>{{ each.abundance }}</td><td>{{ each.presenceAbsenceOnly }}</td><td></td></tr>
                             {% endfor %}
 
                             </table>
