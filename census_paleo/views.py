@@ -328,6 +328,7 @@ def resolve_taxon(request):
 @login_required
 def CSV_occurrence_upload_chooser(request):
     upload_errors=[]
+    error_rownums=[]
     upload_successes=[]
     if request.method == 'POST':
         form = CSVUploadForm(request.POST, request.FILES)
@@ -345,11 +346,15 @@ def CSV_occurrence_upload_chooser(request):
                     upload_successes.append('Row ' + str(counter))
                 except Exception as e:
                     upload_errors.append('Row ' + str(counter) + ": " + str(e))
+                    error_rownums.append(str(counter))
         else:
             messages.add_message(request, messages.WARNING,'The form is not valid')
     else:
         form = CSVUploadForm()
     return render_to_response("csv_upload_occurrences_chooser.html",
-                            {"form":form, "upload_errors":upload_errors, "upload_successes":upload_successes},
+                            {"form":form,
+                             "upload_errors":upload_errors,
+                             "upload_successes":upload_successes,
+                             "error_rownums":error_rownums},
                          RequestContext(request))
 

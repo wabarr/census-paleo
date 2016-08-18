@@ -67,7 +67,14 @@ taxon,ref,location
                                             <li>{{ error }}</li>
                                         {% endfor %}
                                         </ul>
-
+                                    <h2>Cut and Pastable list of error row numbers</h2>
+                                    {% for errornum in error_rownums %}
+                                        {% if forloop.last %}
+                                            {{ errornum }}
+                                        {% else %}
+                                            {{ errornum }},
+                                        {% endif %}
+                                    {% endfor %}
                                     </div>
                                 {% endif %}
 
