@@ -325,47 +325,31 @@ def resolve_taxon(request):
 
     return HttpResponse(json.dumps(match), content_type="application/json")
 
-occ_formset_fields=('ref', 'taxon','location','presenceAbsenceOnly')
-
-
 @login_required
 def CSV_occurrence_upload_chooser(request):
+    upload_errors=[]
+    upload_successes=[]
     if request.method == 'POST':
         form = CSVUploadForm(request.POST, request.FILES)
         if form.is_valid():
-            # check that column names match the field names in occurrence class
-            #check that there is a header
             reader = csv.DictReader(request.FILES['csvFile'])
-            initialData = []
+            counter=0
             for row in reader:
-                initialData.append(row)
-            OccurrenceFormset = modelformset_factory(occurrence, fields=occ_formset_fields, extra=len(initialData))
-            formset = OccurrenceFormset(initial=initialData,queryset=occurrence.objects.none())
-            return render_to_response("CSV_upload_occurrences_formset.html",
-                               {"formset": formset},
-                               RequestContext(request))
+                counter+=1
+                try:
+                    ref = reference.objects.get(pk=row['ref'])
+                    taxon = taxonomy.objects.get(pk=row['taxon'])
+                    location = censusLocation.objects.get(pk=row['location'])
+                    newObject = occurrence(ref=ref, taxon=taxon,location=location,presenceAbsenceOnly=True)
+                    newObject.save()
+                    upload_successes.append('Row ' + str(counter))
+                except Exception as e:
+                    upload_errors.append('Row ' + str(counter) + ": " + str(e))
         else:
             messages.add_message(request, messages.WARNING,'The form is not valid')
     else:
         form = CSVUploadForm()
     return render_to_response("CSV_upload_occurrences_chooser.html",
-                            {"form":form},
+                            {"form":form, "upload_errors":upload_errors, "upload_successes":upload_successes},
                          RequestContext(request))
 
-@login_required()
-def CSV_occurrence_upload_formset(request):
-    if request.method == 'POST':
-        OccurrenceFormset = modelformset_factory(occurrence, fields=occ_formset_fields)
-        formset = OccurrenceFormset(request.POST)
-        if formset.is_valid():
-            formset.save()
-            messages.add_message(request, messages.INFO, 'Successfully added')
-            return render_to_response("CSV_upload_occurrences_formset.html",
-                               {"formset": formset},
-                               RequestContext(request))
-        else:
-            return render_to_response("CSV_upload_occurrences_formset.html",
-                                      {"formset": formset},
-                                      RequestContext(request))
-    else:
-        return HttpResponseRedirect(reverse('CSV_occurrence_upload_chooser'))

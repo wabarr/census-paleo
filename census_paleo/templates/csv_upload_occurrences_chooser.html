@@ -17,8 +17,15 @@
 							<!-- Content -->
 								<div id="content" class="12u skel-cell-mainContent">
                                     <h2>Choose File</h2>
-									<!-- Post -->
+									<h3>I am assuming you want to add occurrences, and that your CSV file looks like this:</h3>
+                                    <p>
+<pre>
+taxon,ref,location
+7,1,1
+6,1,1</pre></p>
+                                    <h3>Currently only works for presence/absence</h3>
 
+                                    </p>
 
                                             <form action="" method="post" enctype="multipart/form-data"> {% csrf_token %}
                                                 <div class="row">
@@ -39,6 +46,33 @@
 
 
                                             </form>
+                                <div class="row">
+
+                                {% if upload_successes %}
+                                    <div class="3u">
+                                        <h2>{{ upload_successes|length }} successes</h2>
+                                        <ul>
+                                        {% for success in upload_successes %}
+                                            <li>{{ success }}</li>
+                                        {% endfor %}
+                                        </ul>
+
+                                    </div>
+                                {% endif %}
+                                {% if upload_errors %}
+                                    <div class="9u">
+                                    <h2>{{ upload_errors|length }} failures</h2>
+                                        <ul>
+                                        {% for error in upload_errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                        </ul>
+
+                                    </div>
+                                {% endif %}
+
+                                </div>
+
 
 
 								</div>
