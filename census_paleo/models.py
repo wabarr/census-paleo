@@ -145,7 +145,7 @@ class taxonomy(models.Model):
 class censusLocation(models.Model):
     fullName = models.CharField(max_length=100)
     shortName = models.CharField(max_length=20, unique=True)
-    country = models.CharField(max_length=100, choices=CHOICES_Asian_country)
+    country = models.CharField(max_length=100, choices=CHOICES_Americas_plusAustralia)
     mmAveragePrecipitation = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
     minAltitude = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
     maxAltitude = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
