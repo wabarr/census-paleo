@@ -132,7 +132,7 @@ class taxonomy(models.Model):
                 infraspecificEpithet = self.infraspecificEpithet,
                 identificationQualifier=self.identificationQualifier,
                 taxonRank=self.taxonRank
-            )
+            ).exclude(pk=self.pk)
             if len(match) > 0:
                 raise ValidationError({NON_FIELD_ERRORS:'Matching taxon already exists'})
         except ObjectDoesNotExist:
