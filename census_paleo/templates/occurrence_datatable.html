@@ -14,7 +14,7 @@ Be sure to load datatables css in the header of any template calling this.
     $(document).ready(function() {
         var table = $('#occurrence-table').DataTable({
         "ajax":"/occurrence_table_json/",
-        "lengthMenu": [[-1, 50, 100], ["All", 50, 100]],
+        "lengthMenu": [[200], [ 200]],
         "fnRowCallback": function (nRow, aData, iDisplayIndex) {
             // Bind click event
             $(nRow).click(function() {

@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from choices_functional_trait import *
 from choices_models import CHOICES_ALL_COUNTRIES, CHOICES_georefMethod
 from choices_taxonomy import *
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.core.exceptions import NON_FIELD_ERRORS
 
 class reference(models.Model):
@@ -91,6 +91,11 @@ class taxonomy(models.Model):
         if getattr(self,modelFieldName):
             try:
                 taxonomy.objects.get(taxonRank=rankString, **kwargs)
+            except MultipleObjectsReturned:
+                raise ValidationError(
+                    "This taxon implies a single entry for '{0}' at rank of {1}, but there are multiple entries in the database".format(
+                        getattr(self, modelFieldName), rankString)
+                )
             except ObjectDoesNotExist:
                 raise ValidationError(
                     "This taxon implies the existence of '{0}' at rank of {1}. You must add it first".format(getattr(self,modelFieldName), rankString)
