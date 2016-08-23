@@ -92,10 +92,12 @@ class taxonomy(models.Model):
             try:
                 taxonomy.objects.get(taxonRank=rankString, **kwargs)
             except MultipleObjectsReturned:
-                raise ValidationError(
-                    "This taxon implies a single entry for '{0}' at rank of {1}, but there are multiple entries in the database".format(
-                        getattr(self, modelFieldName), rankString)
-                )
+                pass
+                ## pass, because there may be good reasons for why there are multiple entries
+                # raise ValidationError(
+                #     "This taxon implies a single entry for '{0}' at rank of {1}, but there are multiple entries in the database".format(
+                #         getattr(self, modelFieldName), rankString)
+                # )
             except ObjectDoesNotExist:
                 raise ValidationError(
                     "This taxon implies the existence of '{0}' at rank of {1}. You must add it first".format(getattr(self,modelFieldName), rankString)
