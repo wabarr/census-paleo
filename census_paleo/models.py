@@ -86,7 +86,7 @@ class taxonomy(models.Model):
             name = self.identificationQualifier + " " + name
 
         if not self.extant:
-            name = smart_text(name) + u" ✝"
+            name = smart_text(name) + " **"
 
         return smart_text(name)
 
