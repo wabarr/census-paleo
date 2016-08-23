@@ -6,6 +6,7 @@ from choices_models import CHOICES_ALL_COUNTRIES, CHOICES_georefMethod
 from choices_taxonomy import *
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.core.exceptions import NON_FIELD_ERRORS
+from django.utils.encoding import smart_text
 
 class reference(models.Model):
     authorshortstring = models.CharField(max_length=100)
@@ -85,9 +86,9 @@ class taxonomy(models.Model):
             name = self.identificationQualifier + " " + name
 
         if not self.extant:
-            name += u" ✝"
+            name = smart_text(name) + u" ✝"
 
-        return name
+        return smart_text(name)
 
     def validate_implied_taxon(self,rankString, **kwargs):
         modelFieldName = kwargs.keys()[0] #need to do some tests here!
