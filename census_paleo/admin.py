@@ -20,7 +20,7 @@ class taxonomyAdmin(admin.ModelAdmin):
     list_filter = ['tribe','taxonRank', "family"]
     search_fields = ["genus", "species", "tribe", "subfamily", "family", "order"]
     list_editable = ['extant','taxonRank','ref']
-    #inlines = [OccurrenceInline, ]
+    inlines = [OccurrenceInline, ]
 
 
 class censusLocationAdmin(AjaxSelectAdmin):

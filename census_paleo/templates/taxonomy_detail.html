@@ -29,11 +29,22 @@
                                                 <div class="4u"><strong>Genus: </strong><em>{{ object.genus }}</em></div>
                                                 <div class="4u"><strong>Species: </strong><em>{{ object.species }}</em></div>
                                             </div>
-                                            <div class="row">
+                                            <div class="row" style="padding-bottom:20px;">
                                                 <div class="12u"><input type="button" value="Edit Record" onclick="location.href='/admin/census_paleo/taxonomy/{{ object.id }}/'"></div>
                                             </div>
+                                        <h3>Taxon occurs at these locations:</h3>
+                                        <div class="row">
+                                                <div class="6u"><strong>Location: </strong></div>
+                                                <div class="6u"><strong>Ref: </strong></div>
+                                            </div>
+                                        {% for occurrence in object.occurrence_set.all %}
 
+                                            <div class="row">
+                                                <div class="6u">{{ occurrence.location }}</div>
+                                                <div class="6u">{{ occurrence.ref }}</div>
+                                            </div>
 
+                                        {% endfor %}
 										</article>
 
 								</div>
