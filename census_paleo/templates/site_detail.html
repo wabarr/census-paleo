@@ -34,9 +34,21 @@
                         {% if site_occurrences %}
                             <h2>Taxon Occurrences</h2>
                             <table>
-                            <tr class="boldrow"><td>Taxon</td><td>Tribe</td><td>Reference</td><td>Abundance</td><td>Presence</td></tr>
+                            <tr class="boldrow">
+                                <td>Taxon</td>
+                                <td>Reference</td>
+                                <td>Abundance</td>
+                                <td>Present</td>
+                                <td></td>
+                            </tr>
                             {% for each in site_occurrences %}
-                                <tr onclick="window.open('/occurrences/{{ each.id }}');" class="editablerow" ><td>{{ each.taxon}}</td><td>{{ each.taxon.tribe }}</td><td>{{ each.ref }}</td><td>{{ each.abundance }}</td><td>{{ each.presenceAbsenceOnly }}</td><td></td></tr>
+                                <tr>
+                                    <td><a href="{% url 'taxon_detail' each.taxon.id %}">{{ each.taxon}}</a></td>
+                                    <td>{{ each.ref }}</td>
+                                    <td>{% if each.abundance %}{{ each.abundance }}{% endif %}</td>
+                                    <td>{% if each.presenceAbsenceOnly %}&#10004;{% endif %}</td><td></td>
+                                    <td><a href="/admin/census_paleo/occurrence/{{ each.id }}">Edit</a></td>
+                                </tr>
                             {% endfor %}
 
                             </table>
