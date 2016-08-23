@@ -77,5 +77,7 @@ CHOICES_tribe = (
 ("Colobini","Colobini"),
 ("Papionini","Papionini"),
 ("Hominini","Hominini"),
+("Boselaphini","Boselaphini"),
+("Caprini","Caprini"),
 )
 
