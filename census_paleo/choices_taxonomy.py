@@ -79,5 +79,17 @@ CHOICES_tribe = (
 ("Hominini","Hominini"),
 ("Boselaphini","Boselaphini"),
 ("Caprini","Caprini"),
+("Giraffini","Giraffini"),
+("Palaeotragini","Palaeotragini"),
+("Sivatheriini","Sivatheriini"),
+("Kubanochoerini","Kubanochoerini"),
+("Nyanzachoerini","Nyanzachoerini"),
+("Phacochoerini","Phacochoerini"),
+("Potamochoerini","Potamochoerini"),
+("Homotheriini","Homotheriini"),
+("Metailurini","Metailurini"),
+("Smilodontini","Smilodontini"),
+("Enhydrini","Enhydrini"),
+("Protoxerini","Protoxerini"),
 )
 
