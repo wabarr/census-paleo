@@ -74,7 +74,7 @@ class taxonomy(models.Model):
             name =   self.genus + " (" + self.taxonRank + ")"
         # special case for things like Alcelaphini sp. large of Reed 2008
         elif str(self.taxonRank).lower() == 'species' and self.genus == "":
-            name = self.tribe + " " + self.species + " (" + self.taxonRank + ")"
+            name = smart_text(self.tribe) + " " + smart_text(self.species) + " (" + smart_text(self.taxonRank) + ")"
         elif str(self.taxonRank).lower() == 'species':
             name =   self.genus + " " + self.species + " (" + self.taxonRank + ")"
         elif str(self.taxonRank).lower() == 'subspecies':
