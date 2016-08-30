@@ -176,6 +176,7 @@ class fossilLocation(censusLocation):
     projectArea = member = models.CharField(max_length=100)
     formation = models.CharField(max_length=100)
     member = models.CharField(max_length=100, null=True, blank=True)
+    locality = models.CharField(max_length=100, null=True, blank=True)
     submember = models.CharField(max_length=100, null=True, blank=True)
     minAgeMa = models.DecimalField(max_digits=10, decimal_places=5, null=True, blank=True)
     maxAgeMa = models.DecimalField(max_digits=10, decimal_places=5, null=True, blank=True)
