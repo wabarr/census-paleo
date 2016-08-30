@@ -13,12 +13,13 @@ class occurrenceAdmin(AjaxSelectAdmin):
     list_filter = ["ref","location"]
     list_display = ["ref","location","taxon","abundance","presenceAbsenceOnly"]
     list_editable = ["abundance","presenceAbsenceOnly"]
+    search_fields = ["taxon__id", "taxon__species", "taxon__genus"]
     form = make_ajax_form(occurrence, {'ref': 'referenceLookup', 'location':'locationLookup', 'taxon':'taxonLookup'})
 
 class taxonomyAdmin(admin.ModelAdmin):
     list_display = ['id','__unicode__','order','family','tribe','genus','species','ref','extant']
     list_filter = ['taxonRank','tribe', "family"]
-    search_fields = ["genus", "species", "tribe", "subfamily", "family", "order"]
+    search_fields = ["id","genus", "species", "tribe", "subfamily", "family", "order"]
     list_editable = ['extant','ref']
     inlines = [OccurrenceInline, ]
 
