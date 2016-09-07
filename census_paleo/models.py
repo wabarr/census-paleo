@@ -170,7 +170,11 @@ class censusLocation(models.Model):
         db_table = 'censusLocation'
 
     def __unicode__(self):
-        return self.shortName
+        try:
+            foss = fossilLocation.objects.get(pk=self.id)
+            return str(foss.projectArea) + " - " + str(foss.locality) + " - " + str(foss.member) + " - " + str(foss.submember)
+        except ObjectDoesNotExist:
+            return self.shortName
 
 class fossilLocation(censusLocation):
     projectArea = member = models.CharField(max_length=100)
@@ -186,7 +190,7 @@ class fossilLocation(censusLocation):
     class Meta:
         db_table = 'fossilLocation'
     def __unicode__(self):
-        return self.projectArea + " - " + self.member + " - " + self.submember
+        return self.projectArea + " - "  + self.locality + " - " + self.member + " - "  + self.submember
 
 
 class occurrence(models.Model):

@@ -29,13 +29,9 @@ class censusLocationAdmin(AjaxSelectAdmin):
     #inlines = [OccurrenceInline, ]
     search_fields = ["fullName", "shortName"]
 
-
-
-
-class fossilLocationAdmin(admin.ModelAdmin):
-    #inlines = [OccurrenceInline, ]
+class fossilLocationAdmin(AjaxSelectAdmin):
+    list_display = ('id', "fullName", "projectArea","formation","member", "locality","submember")
     search_fields = ["fullName", "shortName"]
-
 
 class referenceAdmin(admin.ModelAdmin):
     list_display = ["authorshortstring", "year","dataEntryComplete"]
