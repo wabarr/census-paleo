@@ -38,10 +38,11 @@ class referenceAdmin(admin.ModelAdmin):
     list_editable = ["year","dataEntryComplete"]
     #inlines = [OccurrenceInline,]
 
-class functionalTraitAdmin(admin.ModelAdmin):
+class functionalTraitAdmin(AjaxSelectAdmin):
     list_display = ['taxon','browse_graze','habitat','bodysize_brain_bunn','bodysize_lintulaakso','locomotor_reed','trophic_lintulaakso']
     search_fields = ['taxon__id', 'taxon__genus', 'taxon__species']
     list_filter = ['browse_graze', 'locomotor_reed', 'trophic_lintulaakso', 'bodysize_lintulaakso']
+    form = make_ajax_form(functional_traits, {"taxon":"taxonLookup"})
 
 admin.site.register(reference, referenceAdmin)
 admin.site.register(taxonomy,taxonomyAdmin)
