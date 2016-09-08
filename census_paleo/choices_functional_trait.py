@@ -43,7 +43,7 @@ CHOICES_TROPHIC_LINTULAAKSO = (
     ('P','Piscivore'),
     ('M','Myrmecophage'),
     ('MF','Mixed-Feeder'),
-    ('FG','Frigivore-Granivore'),
+    ('FG','Frugivore-Granivore'),
     ('FH','Frugivore-Herbivore'),
     ('FO','Frugivore-Omnivore'),
     ('IO','Insectivore-Omnivore'),
