@@ -1,0 +1,92 @@
+{% extends "strongly_typed_no_sidebar.html" %}
+
+{% block title %}<title>Upload CSV of Occurrences</title>{% endblock %}
+
+{% block header_block %}
+{% endblock %}
+
+
+{% block base_content %}
+<div id="main-wrapper">
+        {% include "census_navbar.html" %}
+
+				<!-- Main -->
+					<div id="main" class="container" style="width:80%;>
+						<div class="row">
+
+							<!-- Content -->
+								<div id="content" class="12u skel-cell-mainContent">
+                                    <h2>Choose File</h2>
+									<h3>I am assuming you want to add functional traits, and that your CSV file looks like this:</h3>
+                                    <p>
+<pre>
+taxon,bodysize_lintulaakso,locomotor_reed,trophic_lintulaakso
+1435412,A,T,I
+1004454,B,AT,FH</pre></p>
+                                    <h3>Categories match those in Lintuulakso & Kovarovic</h3>
+
+                                    </p>
+
+                                            <form action="" method="post" enctype="multipart/form-data"> {% csrf_token %}
+                                                <div class="row">
+                                                    <div class="12u">
+                                                        {% if messages %}
+                                                            {% for message in messages %}
+                                                                <p class="success-added">{{ message }}</p>
+                                                            {% endfor %}
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="12u">
+                                                        {{ form.as_p }}
+                                                        <input type="submit">
+                                                    </div>
+                                                </div>
+
+
+                                            </form>
+                                <div class="row">
+
+                                {% if upload_successes %}
+                                    <div class="3u">
+                                        <h2>{{ upload_successes|length }} successes</h2>
+                                        <ul>
+                                        {% for success in upload_successes %}
+                                            <li>{{ success }}</li>
+                                        {% endfor %}
+                                        </ul>
+
+                                    </div>
+                                {% endif %}
+                                {% if upload_errors %}
+                                    <div class="9u">
+                                    <h2>{{ upload_errors|length }} failures</h2>
+                                        <ul>
+                                        {% for error in upload_errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                        </ul>
+                                    <h2>Cut and Pastable list of error row numbers</h2>
+                                    {% for errornum in error_rownums %}
+                                        {% if forloop.last %}
+                                            {{ errornum }}
+                                        {% else %}
+                                            {{ errornum }},
+                                        {% endif %}
+                                    {% endfor %}
+                                    </div>
+                                {% endif %}
+
+                                </div>
+
+
+
+								</div>
+
+						</div>
+					</div>
+
+			</div>
+
+{% endblock %}

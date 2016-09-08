@@ -358,3 +358,34 @@ def CSV_occurrence_upload_chooser(request):
                              "error_rownums":error_rownums},
                          RequestContext(request))
 
+@login_required
+def CSV_functionalTrait_upload_chooser(request):
+    upload_errors=[]
+    error_rownums=[]
+    upload_successes=[]
+    if request.method == 'POST':
+        form = CSVUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            reader = csv.DictReader(request.FILES['csvFile'])
+            counter=0
+            for row in reader:
+                counter+=1
+                try:
+                    taxon = taxonomy.objects.get(pk=row['taxon'])
+                    newObject = functional_traits(taxon=taxon,locomotor_reed=row['locomotor_reed'], trophic_lintulaakso=row['trophic_lintulaakso'], bodysize_lintulaakso=row['bodysize_lintulaakso'] )
+                    newObject.save()
+                    upload_successes.append('Row ' + str(counter))
+                except Exception as e:
+                    upload_errors.append('Row ' + str(counter) + ": " + str(e))
+                    error_rownums.append(str(counter))
+        else:
+            messages.add_message(request, messages.WARNING,'The form is not valid')
+    else:
+        form = CSVUploadForm()
+    return render_to_response("csv_upload_functionalTraits_chooser.html",
+                            {"form":form,
+                             "upload_errors":upload_errors,
+                             "upload_successes":upload_successes,
+                             "error_rownums":error_rownums},
+                         RequestContext(request))
+

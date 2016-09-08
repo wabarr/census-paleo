@@ -40,6 +40,8 @@ class referenceAdmin(admin.ModelAdmin):
 
 class functionalTraitAdmin(admin.ModelAdmin):
     list_display = ['taxon','browse_graze','habitat','bodysize_brain_bunn','bodysize_lintulaakso','locomotor_reed','trophic_lintulaakso']
+    search_fields = ['taxon__id', 'taxon__genus', 'taxon__species']
+    list_filter = ['browse_graze', 'locomotor_reed', 'trophic_lintulaakso', 'bodysize_lintulaakso']
 
 admin.site.register(reference, referenceAdmin)
 admin.site.register(taxonomy,taxonomyAdmin)
