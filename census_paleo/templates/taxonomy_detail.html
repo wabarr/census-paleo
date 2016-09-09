@@ -33,11 +33,44 @@
                                                 <div class="12u"><input type="button" value="Edit Record" onclick="location.href='/admin/census_paleo/taxonomy/{{ object.id }}/'"></div>
                                             </div>
 
-                                        {% if object.occurrence_set.all %}
-                                            <h3>Taxon occurs at these locations:</h3>
+                                        {% for trait in object.functional_traits_set.all %}
+                                            <div class="row" >
+                                               <div class="12u"><h3>Taxon has these traits</h3></div>
+                                            </div>
+
                                             <div class="row">
-                                                    <div class="6u"><strong>Location: </strong></div>
-                                                    <div class="6u"><strong>Ref: </strong></div>
+                                                <div class="4u"><strong>Browse/Graze: </strong></div>
+                                                <div class="4u"><strong>Trophic Lintulaakso: </strong></div>
+                                                <div class="4u"><strong>Reed Locomotor: </strong></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="4u">{{ trait.browse_graze }}</div>
+                                                <div class="4u">{{ trait.get_trophic_lintulaakso_display }}</div>
+                                                <div class="4u">{{ trait.get_locomotor_reed_display }}</div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="4u"><strong>Bodysize Lintulaakso: </strong></div>
+                                                <div class="4u"><strong>Habitat:</strong></div>
+                                                <div class="4u"><strong>Bodysize Brain Bunn: </strong></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="4u">{{ trait.get_bodysize_lintulaakso_display }}</div>
+                                                <div class="4u">{{ trait.habitat }}</div>
+                                                <div class="4u">{{ trait.get_bodysize_brain_bunn_display }}</div>
+                                            </div>
+                                        {% endfor %}
+
+                                        {% if object.occurrence_set.all %}
+                                            <div class="row" style="padding-top:20px;">
+                                                <div class="12u">
+                                                    <h3>Taxon occurs at these locations:</h3>
+                                                </div>
+                                            </div>
+
+                                                <div class="row">
+                                                        <div class="6u"><strong>Location: </strong></div>
+                                                        <div class="6u"><strong>Ref: </strong></div>
                                                 </div>
                                             {% for occurrence in object.occurrence_set.all %}
 
