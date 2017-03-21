@@ -38,6 +38,20 @@ CHOICES_LOCOMOTOR_REED = (
   ('TA','terrestrial-aquatic'),
   )
 
+CHOICES_TROPHIC_REED = (
+    ("B","leaves"),
+    ("C","meat"),
+    ("C/B","meat/bone"),
+    ("C/I","meat/invertebrates"),
+    ("FG","fresh grass"),
+    ("FL","fruit plus"),
+    ("G","grass"),
+    ("I","insects"),
+    ("MF","leaves and grass"),
+    ("OM","omnivorous"),
+    ("R","roots/bulbs"),
+)
+
 CHOICES_TROPHIC_LINTULAAKSO = (
     ('C','Carnivore'),
     ('P','Piscivore'),

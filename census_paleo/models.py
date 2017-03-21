@@ -228,6 +228,7 @@ class functional_traits(models.Model):
     bodysize_species_mean_kg = models.DecimalField(max_digits=7, decimal_places=2, null=True, blank=True)
     locomotor_reed = models.CharField(max_length=100, null=True, blank=True, choices=CHOICES_LOCOMOTOR_REED)
     trophic_lintulaakso = models.CharField(max_length=100, null=True, blank=True, choices=CHOICES_TROPHIC_LINTULAAKSO)
+    trophic_reed = models.CharField(max_length=100, null=True, blank=True, choices=CHOICES_TROPHIC_REED)
 
     def __unicode__(self):
         return 'Traits of ' + self.taxon.__unicode__()
