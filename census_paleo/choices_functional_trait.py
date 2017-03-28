@@ -32,6 +32,7 @@ CHOICES_SIZE_BRAIN_BUNN = (
 CHOICES_LOCOMOTOR_REED = (
   ('A', 'arboreal'),
   ('AT','arboreal-terrestrial'),
+  ('AQ','aquatic'),
   ('S','subterranean'),
   ('ST','subterranean-terrestrial'),
   ('T','terrestrial'),
