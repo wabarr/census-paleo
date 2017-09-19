@@ -13,11 +13,13 @@ class OccurrenceForm(ModelForm):
     issue = forms.BooleanField(required=False, initial=False)
     class Meta:
         model = occurrence
+        fields = "__all__"
 
 
 class TaxonForm(ModelForm):
     class Meta:
         model = taxonomy
+        fields = "__all__"
 
 class GetTaxonInfoForm(Form):
     taxon = make_ajax_field(occurrence, "taxon", "taxonLookup")
