@@ -229,6 +229,7 @@ class functional_traits(models.Model):
     locomotor_reed = models.CharField(max_length=100, null=True, blank=True, choices=CHOICES_LOCOMOTOR_REED)
     trophic_lintulaakso = models.CharField(max_length=100, null=True, blank=True, choices=CHOICES_TROPHIC_LINTULAAKSO)
     trophic_reed = models.CharField(max_length=100, null=True, blank=True, choices=CHOICES_TROPHIC_REED)
+    notes = models.TextField(null=True, blank=True)
 
     def __unicode__(self):
         return 'Traits of ' + self.taxon.__unicode__()
