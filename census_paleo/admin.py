@@ -39,7 +39,7 @@ class referenceAdmin(admin.ModelAdmin):
     #inlines = [OccurrenceInline,]
 
 class functionalTraitAdmin(AjaxSelectAdmin):
-    list_display = ['taxon','browse_graze','habitat','bodysize_brain_bunn','bodysize_lintulaakso','locomotor_reed','trophic_lintulaakso']
+    list_display = ['taxon','locomotor_reed','trophic_lintulaakso', 'trophic_rowan', 'locomotor_rowan']
     search_fields = ['taxon__id', 'taxon__genus', 'taxon__species']
     list_filter = ['browse_graze', 'locomotor_reed', 'trophic_lintulaakso', 'bodysize_lintulaakso']
     form = make_ajax_form(functional_traits, {"taxon":"taxonLookup"})

@@ -229,6 +229,8 @@ class functional_traits(models.Model):
     locomotor_reed = models.CharField(max_length=100, null=True, blank=True, choices=CHOICES_LOCOMOTOR_REED)
     trophic_lintulaakso = models.CharField(max_length=100, null=True, blank=True, choices=CHOICES_TROPHIC_LINTULAAKSO)
     trophic_reed = models.CharField(max_length=100, null=True, blank=True, choices=CHOICES_TROPHIC_REED)
+    trophic_rowan = models.CharField(max_length=100, null=True, blank=True, choices=CHOICES_TROPHIC_ROWAN)
+    locomotor_rowan = models.CharField(max_length=100, null=True, blank=True, choices=CHOICES_LOCOMOTOR_ROWAN)
     notes = models.TextField(null=True, blank=True)
 
     def __unicode__(self):

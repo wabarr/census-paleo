@@ -66,3 +66,35 @@ CHOICES_TROPHIC_LINTULAAKSO = (
     ('G','Grazer'),
     ('B','Browser'),
 )
+
+CHOICES_TROPHIC_ROWAN = (
+    ("MF","Mixed-Feeder"),
+    ("MF-B","Mixed-Feeder / Browser"),
+    ("MF-FG","Mixed-Feeder / Frugivore-Granivore"),
+    ("FG","Frugivore-Granivore"),
+    ("MF-G","Mixed-Feeder / Grazer"),
+    ("B","Browser"),
+    ("OM","Omnivore"),
+    ("C","Carnivore"),
+    ("CI","Carnivore-Insectivore"),
+    ("CB","Carnivore-Bone"),
+    ("I","Insectivore"),
+    ("G","Grazer"),
+    ("FL","Fruit-Leaves"),
+    ("FB","Fruit-Browse"),
+    ("G-R","Grazer-Roots"),
+    ("OM-FL","Omnivore-Fruit/Leaves"),
+    ("OM-I","Omnivore-Insectivore"),
+    ("OM-C","Omnivore-Carnivore"),
+    ("FI","Fruit-Insects"),
+    ("F","Fruit"),
+    ("R","Roots"),
+)
+
+CHOICES_LOCOMOTOR_ROWAN = (
+    ("T", "terrestrial"),
+    ("AQ", "aquatic"),
+    ("F", "fossorial"),
+    ("A", "arboreal"),
+    ("TA", "terrestrial-aquatic")
+)

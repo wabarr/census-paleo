@@ -15,7 +15,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 if DEV:
-    default_db_path = "/Users/wabarr/Desktop/census.db"
+    default_db_path = "/Users/wabarr/Dropbox/AncientEcoDatabase/census.db"
 else:
     default_db_path = "/home/wabarr/census.db"
 
