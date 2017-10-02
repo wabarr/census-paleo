@@ -96,5 +96,5 @@ CHOICES_LOCOMOTOR_ROWAN = (
     ("AQ", "aquatic"),
     ("F", "fossorial"),
     ("A", "arboreal"),
-    ("TA", "terrestrial-aquatic")
+    ("TA", "terrestrial-arboreal")
 )
