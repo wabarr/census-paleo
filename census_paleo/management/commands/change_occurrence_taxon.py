@@ -1,21 +1,14 @@
 from django.core.management.base import BaseCommand, CommandError
 from census_paleo.models import *
 from django.core.exceptions import ObjectDoesNotExist
+from optparse import make_option
 
 class Command(BaseCommand):
     help = 'changes taxon for all matching occurrences'
-
-    def add_arguments(self, parser):
-
-        # Named (optional) arguments
-        parser.add_argument(
-            '--oldtaxon',
-            default=None,
-        )
-        parser.add_argument(
-            '--newtaxon',
-            default=None,
-        )
+    option_list = BaseCommand.option_list + (
+            make_option('--oldtaxon',default=None),
+            make_option('--newtaxon', default=None),
+    )
 
     def handle(self, *args, **options):
         try:
