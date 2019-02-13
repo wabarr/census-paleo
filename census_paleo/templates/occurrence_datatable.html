@@ -37,10 +37,10 @@ Be sure to load datatables css in the header of any template calling this.
         $('.dataTables_filter').append('&nbsp;&nbsp;&nbsp;&nbsp;Click on any row for more details.');
         $('#occurrence-table').show();
 
-        {% comment %}Reload table data every 10 seconds{% endcomment %}
+        {% comment %}Reload table data every minute {% endcomment %}
         setInterval( function () {
             table.ajax.reload();
-        }, 6000 );
+        }, 36000 );
 
     } );
 </script>
