@@ -36,5 +36,5 @@ urlpatterns = patterns('',
     url(r'^CSV_upload_functionalTrait_chooser',CSV_functionalTrait_upload_chooser, name='CSV_functionalTrait_upload_chooser'),
     #url(r'^CSV_upload_occurrences',CSV_occurrence_upload_formset, name='CSV_occurrence_upload_formset'),
     #url(r'^api/', include(v1_api.urls)),
-    url(r'^$', sites),
+    url(r'^$', enter_occurrence),
 )
