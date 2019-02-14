@@ -78,7 +78,7 @@ else:
 if DEV:
     STATIC_URL="/static/"
 else:
-    STATIC_URL = 'http://census.ancienteco.com/static/'
+    STATIC_URL = 'https://census.ancienteco.com/static/'
 
 
 # Additional locations of static files
