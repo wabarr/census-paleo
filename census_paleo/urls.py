@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from census_paleo.views import *
 from ajax_select import urls as ajax_select_urls
-from tastypie.api import Api
+#from tastypie.api import Api
 from django.contrib import admin
 #from census_paleo.api import OccurrenceResource, ReferenceResource, TaxonomyResource
 
@@ -23,8 +23,9 @@ urlpatterns = patterns('',
     url(r'^add_taxon/$',add_taxon),
     url(r'^occurrence-pivot/$',occurrence_pivot),
     url(r'^occurrence-pivot-json/$',occurrence_pivot_json),
-    url(r'^sites/$',sites),
+    url(r'^sites/$',ViewSites.as_view()),
     url(r'^sites/(?P<sitename>.+)/$',site_detail, name='site_detail'),
+    url(r'^site_list/$',ViewSites.as_view(), name='site_list'),
     url(r'^sites_json/$',sites_json),
     url(r'^taxa/$',ViewTaxa.as_view(), name="taxon_list"),
     url(r'^taxa/(?P<pk>[-\w]+)/$', ViewTaxon.as_view(), name="taxon_detail"),

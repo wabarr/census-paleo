@@ -1,5 +1,5 @@
 import json
-from django.http import HttpResponse,HttpResponseRedirect
+from django.http import HttpResponse,HttpResponseRedirect, Http404
 from django.template import Context, loader,RequestContext
 from django.shortcuts import render_to_response,render
 from census_paleo.models import *
@@ -12,9 +12,10 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.contrib.auth.decorators import login_required, permission_required
 from census_paleo.forms import OccurrenceForm, GetTaxonInfoForm, TaxonForm, CSVUploadForm
-from django_pandas.io import read_frame
+#from django_pandas.io import read_frame
 from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse
+from itertools import chain
 import csv
 
 
@@ -29,7 +30,7 @@ def sites(request):
 def site_detail(request, sitename):
 
     if not sitename:
-        HttpResponseRedirect("/census/sites")
+        raise Http404("Site Does Not Exist")
     else:
         try: #first try to get from the fossil locations
             site = fossilLocation.objects.get(shortName = sitename)
@@ -37,7 +38,7 @@ def site_detail(request, sitename):
             try:
                 site = censusLocation.objects.get(shortName = sitename)
             except:#if neither fossil nor census location then just return the map
-                return HttpResponseRedirect("/census/sites/")
+                raise Http404("Site Does Not Exist")
 
         site_occurrences = occurrence.objects.filter(location__shortName = sitename)
         if isinstance(site, fossilLocation):
@@ -48,7 +49,6 @@ def site_detail(request, sitename):
         return render_to_response('site_detail.html',
                               {"site_occurrences":site_occurrences, "site":site, "relatedSites":relatedSites},
                               context_instance=RequestContext(request))
-
 
 
 def sites_json(request):
@@ -156,6 +156,25 @@ class ViewTaxa(ListView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(ViewTaxa, self).dispatch(*args, **kwargs)
+
+class ViewSites(ListView):
+    model = censusLocation
+    template_name = "site_list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(ViewSites, self).get_context_data(**kwargs)
+        fossilLocationIDs = [object.id for object in fossilLocation.objects.all()]
+        censusLocationIDs = [object.id for object in censusLocation.objects.all() if object.id not in fossilLocationIDs]
+        censusLocations = censusLocation.objects.filter(pk__in=censusLocationIDs)
+        fossilLocations = fossilLocation.objects.filter(pk__in=fossilLocationIDs)
+        result_list = list(chain(censusLocations, fossilLocations))
+        context["combined_objects"] = result_list
+        return context
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ViewSites, self).dispatch(*args, **kwargs)
+
 
 class ViewOccurrence(DetailView):
     model = occurrence

@@ -25,6 +25,11 @@
                             {% endif %}
 
                         </table>
+                        {% if site.maxAgeMa %}
+                        <a href="/admin/census_paleo/fossillocation/{{ site.id }}"><button>Edit Site Details</button></a>
+                        {% else %}
+                        <a href="/admin/census_paleo/censuslocation/{{ site.id }}"><button>Edit Site Details</button></a>
+                        {% endif %}
                     </div>
 
 
