@@ -26,7 +26,7 @@ def sites(request):
      return render_to_response('sites.html',
                              {},
                           context_instance=RequestContext(request))
-
+@login_required
 def site_detail(request, sitename):
 
     if not sitename:
@@ -50,7 +50,7 @@ def site_detail(request, sitename):
                               {"site_occurrences":site_occurrences, "site":site, "relatedSites":relatedSites},
                               context_instance=RequestContext(request))
 
-
+@login_required
 def sites_json(request):
     resp = []
     for each in censusLocation.objects.all():
