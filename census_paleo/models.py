@@ -284,6 +284,7 @@ class measured_values(models.Model):
     measurement = models.ForeignKey(measurement)
     specimen = models.ForeignKey(specimen)
     value = models.DecimalField(max_digits=20, decimal_places=5, null=False, blank=False)
+    reference = models.ForeignKey(reference, null=True, blank=False)
 
     def __unicode__(self):
         return self.specimen.__unicode__() + " |  " + self.element.__unicode__() + " | " + str(self.measurement)

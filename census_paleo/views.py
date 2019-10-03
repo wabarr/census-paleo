@@ -250,6 +250,13 @@ def enter_occurrence(request):
                          RequestContext(request))
 
 @login_required
+def enter_measured_value(request):
+    if requet.method == 'POST':
+        pass
+    else:
+        pass
+
+@login_required
 def occurrence_pivot_json(request):
     kwarg_dict = {}
     try:

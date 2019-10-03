@@ -15,6 +15,8 @@ class OccurrenceForm(ModelForm):
         model = occurrence
         fields = "__all__"
 
+class MeasuredValueForm(ModelForm):
+   taxon = make_ajax_field(occurrence, "taxon", "taxonLookup")
 
 class TaxonForm(ModelForm):
     class Meta:
