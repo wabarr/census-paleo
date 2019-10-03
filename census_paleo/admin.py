@@ -44,9 +44,14 @@ class functionalTraitAdmin(AjaxSelectAdmin):
     list_filter = ['browse_graze', 'locomotor_reed', 'trophic_lintulaakso', 'bodysize_lintulaakso']
     form = make_ajax_form(functional_traits, {"taxon":"taxonLookup"})
 
+
 admin.site.register(reference, referenceAdmin)
 admin.site.register(taxonomy,taxonomyAdmin)
 admin.site.register(censusLocation,censusLocationAdmin)
 admin.site.register(occurrence, occurrenceAdmin)
 admin.site.register(fossilLocation, fossilLocationAdmin)
 admin.site.register(functional_traits, functionalTraitAdmin)
+admin.site.register(measurement, admin.ModelAdmin)
+admin.site.register(measured_values, admin.ModelAdmin)
+admin.site.register(specimen, admin.ModelAdmin)
+admin.site.register(skeletal_element, admin.ModelAdmin)

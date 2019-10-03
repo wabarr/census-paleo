@@ -190,8 +190,10 @@ class fossilLocation(censusLocation):
     class Meta:
         db_table = 'fossilLocation'
     def __unicode__(self):
-        return self.projectArea + " - "  + self.locality + " - " + self.member + " - "  + self.submember
-
+        try:
+            return self.projectArea + " - "  + self.locality + " - " + self.member + " - "  + self.submember
+        except:
+            return "Problem with fossilLocation pk=" + str(self.id)
 
 class occurrence(models.Model):
     ref = models.ForeignKey(reference, null=True, blank=False, )
@@ -239,3 +241,54 @@ class functional_traits(models.Model):
         db_table = 'functional_traits'
         verbose_name = "functional trait"
         verbose_name_plural = "functional traits"
+
+class skeletal_element(models.Model):
+    name = models.CharField(max_length=100,null=False, blank=False)
+    notes = models.CharField(max_length=100)
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        db_table='skeletal_element'
+        verbose_name="skeletal element"
+        verbose_name_plural='skeletal_elements'
+
+class specimen(models.Model):
+    museum = models.CharField(max_length=100,null=False, blank=False)
+    collection_code = models.CharField(max_length=100,null=False, blank=False)
+    taxon = models.ForeignKey(taxonomy, null=False, blank=False)
+    specimen_number = models.CharField(max_length=100, null=False, blank=False)
+    specimen_number_part = models.CharField(max_length=100,null=True, blank=True)
+    assemblage = models.ForeignKey(fossilLocation)
+
+    def __unicode__(self):
+        return self.collection_code + " " + self.specimen_number + " " + self.specimen_number_part
+
+    class Meta:
+        db_table = "specimen"
+
+class measurement(models.Model):
+    name = models.CharField(max_length=100,null=False, blank=False)
+    definition = models.CharField(max_length=200,null=False, blank=False)
+    reference = models.ForeignKey(reference, null=True, blank=True)
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        db_table="measurement"
+
+class measured_values(models.Model):
+    element = models.ForeignKey(skeletal_element)
+    measurement = models.ForeignKey(measurement)
+    specimen = models.ForeignKey(specimen)
+    value = models.DecimalField(max_digits=20, decimal_places=5, null=False, blank=False)
+
+    def __unicode__(self):
+        return self.specimen.__unicode__() + " |  " + self.element.__unicode__() + " | " + str(self.measurement)
+
+    class Meta:
+        db_table="measured_values"
+        verbose_name="measured value"
+        verbose_name_plural="measured values"
