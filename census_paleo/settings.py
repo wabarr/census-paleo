@@ -182,5 +182,6 @@ AJAX_LOOKUP_CHANNELS = {
     'taxonLookup'  : ('ajax_select.lookups', 'taxonLookup'),
     'locationLookup'  : ('ajax_select.lookups', 'locationLookup'),
     'referenceLookup'  : ('ajax_select.lookups', 'referenceLookup'),
+    'assemblageLookup'  : ('ajax_select.lookups', 'assemblageLookup'),
 
 }

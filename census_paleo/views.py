@@ -251,10 +251,14 @@ def enter_occurrence(request):
 
 @login_required
 def enter_measured_value(request):
-    if requet.method == 'POST':
+    measuredValuesFormset = modelformset_factory(measured_values, extra=5)
+    if request.method == 'POST':
         pass
     else:
-        pass
+        formset = measuredValuesFormset()
+        return render_to_response("enter_measured_value.html",
+                                  {"formset":formset},
+                                  RequestContext(request))
 
 @login_required
 def occurrence_pivot_json(request):

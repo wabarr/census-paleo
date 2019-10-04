@@ -44,6 +44,12 @@ class functionalTraitAdmin(AjaxSelectAdmin):
     list_filter = ['browse_graze', 'locomotor_reed', 'trophic_lintulaakso', 'bodysize_lintulaakso']
     form = make_ajax_form(functional_traits, {"taxon":"taxonLookup"})
 
+class MeasuredValueInline(admin.TabularInline):
+    model = measured_values
+
+class specimenAdmin(AjaxSelectAdmin):
+    form = make_ajax_form(specimen, {"taxon": "taxonLookup", "assemblage":"assemblageLookup"})
+    inlines = [MeasuredValueInline,]
 
 admin.site.register(reference, referenceAdmin)
 admin.site.register(taxonomy,taxonomyAdmin)
@@ -53,5 +59,5 @@ admin.site.register(fossilLocation, fossilLocationAdmin)
 admin.site.register(functional_traits, functionalTraitAdmin)
 admin.site.register(measurement, admin.ModelAdmin)
 admin.site.register(measured_values, admin.ModelAdmin)
-admin.site.register(specimen, admin.ModelAdmin)
+admin.site.register(specimen, specimenAdmin)
 admin.site.register(skeletal_element, admin.ModelAdmin)

@@ -1,6 +1,6 @@
 from django.db.models import Q
 from ajax_select import LookupChannel
-from census_paleo.models import taxonomy, reference, censusLocation
+from census_paleo.models import taxonomy, reference, censusLocation, specimen, fossilLocation
 
 
 class taxonLookup(LookupChannel):
@@ -32,6 +32,27 @@ class locationLookup(LookupChannel):
     def get_query(self,q,request):
         query = Q(fullName__icontains=q) | Q(shortName__icontains=q)
         return censusLocation.objects.filter(query)
+
+    def can_add(self, user, argmodel):
+        return True
+
+class specimenLookup(LookupChannel):
+
+    model = specimen
+
+    def get_query(self, q, request):
+        query = Q(collection_code__icontains=q) | Q(specimen_number__icontains=q)
+        return specimens.objects.filter(query)
+
+    def can_add(self, user, argmodel):
+        return True
+
+class assemblageLookup(LookupChannel):
+    model = fossilLocation
+
+    def get_query(self, q, request):
+        query = Q(projectArea__icontains=q) | Q(formation__icontains=q) | Q(member__icontains=q) | Q(locality__icontains=q)
+        return fossilLocation.objects.filter(query)
 
     def can_add(self, user, argmodel):
         return True

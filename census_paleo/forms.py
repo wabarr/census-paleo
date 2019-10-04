@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm, Form
-from census_paleo.models import occurrence, taxonomy
+from census_paleo.models import occurrence, taxonomy, measured_values, specimen
 from ajax_select import make_ajax_field
 
 
@@ -16,7 +16,11 @@ class OccurrenceForm(ModelForm):
         fields = "__all__"
 
 class MeasuredValueForm(ModelForm):
-   taxon = make_ajax_field(occurrence, "taxon", "taxonLookup")
+   specimen = make_ajax_field(measured_values, "specimen", "specimenLookup")
+   reference = make_ajax_field(measured_values, "reference", "referenceLookup")
+   class Meta:
+       model = measured_values
+       fields = "__all__"
 
 class TaxonForm(ModelForm):
     class Meta:
